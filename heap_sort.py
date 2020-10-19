@@ -2,11 +2,10 @@
 """
 Created on Mon Oct 19 14:49:57 2020
 
-@author: a693658
 """
 
 def heapify(A, n, i):
-    
+    # each heapify function is a top-to-bottom process
     largest = i
     left = 2 * i + 1
     right = 2 * i + 2
@@ -22,7 +21,7 @@ def heapify(A, n, i):
         
 def heap_sort(A):
     n = len(A)
-    # build max_heap using heapify function
+    # build max_heap using heapify function from bottom to top, i.e. in the loop, we build heap at the bottom first, and then go up to build heap at a higher level
     for i in range(n//2 - 1, -1, -1):
         heapify(A, n, i)
         
