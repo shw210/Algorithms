@@ -2,19 +2,12 @@
 # 53 Maximum Subarray
 
 思路：divide and conquer
-        
-     从中点，把nums分成left，right，和cross，相互比较求最大值为答案；不断分割至最短list，然后往上返回答案
-        
-     参考video：https://www.youtube.com/watch?v=OVvgiWeKI14  (3:05)
+从中点，把nums分成left，right，和cross，相互比较求最大值为答案；不断分割至最短list，然后往上返回答案
+参考video：https://www.youtube.com/watch?v=OVvgiWeKI14  (3:05)
      
- ''' python
+ ``` python
  class Solution(object):
     def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        
-        """
         n = len(nums)
         
         if n == 1:
@@ -43,4 +36,4 @@
             max_left = max(max_left, left)
             
         return max_left + max_right
-   '''
+  ```
