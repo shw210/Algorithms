@@ -2,7 +2,7 @@
 # 53 Maximum Subarray
 
 思路：divide and conquer
-从中点，把nums分成left，right，和cross，相互比较求最大值为答案；不断分割至最短list，然后往上返回答案
+从中点，把nums分成left，right，和cross，相互比较求最大值为答案；不断分割至最短list，然后往上返回答案.
 参考video：https://www.youtube.com/watch?v=OVvgiWeKI14  (3:05)
      
  ``` python
