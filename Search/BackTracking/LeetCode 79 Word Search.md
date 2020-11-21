@@ -1,6 +1,6 @@
 思路: DFS  
-写dfs function: 先判断base case， 然后写false的情况，过了之后往周边写 recursive dfs
-大function的思路就是循环每一个格子，如果跟word的第一个字母相等就 在这个格子上
+写dfs function: 先判断base case， 然后写false的情况，过了之后往周边写 recursive dfs          
+大function的思路就是循环每一个格子，如果跟word的第一个字母相等就 在这个格子上 call dfs function
 
 ``` Python
 class Solution(object):
