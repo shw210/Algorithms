@@ -1,3 +1,6 @@
+141. Linked List Cycle.md   
+思路：通向双指针，一快一慢
+
 ```Python
 class Solution(object):
     def hasCycle(self, head):
@@ -20,4 +23,4 @@ class Solution(object):
         return False
 ```
 
-思路：通向双指针，一快一慢
+
