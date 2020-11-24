@@ -1,5 +1,5 @@
 141. Linked List Cycle.md   
-思路：通向双指针，一快一慢
+思路：同向双指针，一快一慢
 
 ```Python
 class Solution(object):
