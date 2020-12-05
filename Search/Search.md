@@ -40,8 +40,7 @@ class Solution(object):
 [[1,1,2], [1,2,1], [2,1,1]]
 ```
 
-思路：
-
+思路：     
 recursive function: loop through the nums, 轮流将i位的数字挑出来放到prefix里，剩下的字段属于备选. 将这个过程一直进行到剩下的字段为零为止，将prefix贴到answer里
 
 ```Python
