@@ -103,5 +103,33 @@ class Solution(object):
         return answer
 ```
 
+## 77. Combinations [Medium]
 
+```Python
+class Solution(object):
+    def combine(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        answer = []
+        
+        prefix = []
+        
+        def helper(prefix, n1, k1):
+            if k1 < 0 or n1 < 0 or n1 < k1: return
+            
+            if k1 == 0: 
+                answer.append(prefix)
+                return
+        
+            for i in range(n1):
+                helper(prefix + [n1 - i], n1 - i - 1, k1 - 1)
+            
+            
+        helper(prefix, n, k)
+        
+        return answer
+```
 
