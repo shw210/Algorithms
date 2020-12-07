@@ -181,3 +181,41 @@ class Solution(object):
         
         return answer
 ```
+
+## 78. Subsets
+
+找出所有子集
+```html
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+```
+注意，如果nums = [1, 2, 3], 那么nums[3:] 为 [], 不会报错    
+
+Solution:
+```Python
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        # assume nums only contain distinct numbers
+        prefix = []
+        answer = []
+        
+        def helper(prefix, sufix, k):
+            if k == 0:
+                answer.append(prefix)
+                return
+            
+            if len(sufix) == 0: return
+            
+            for i in range(len(sufix)):
+                helper(prefix + [sufix[i]], sufix[i + 1:], k - 1) #注意，可以写sufix[i + 1:]，不会报错
+            
+        for i in range(len(nums) + 1):
+            helper(prefix, nums, i)
+            
+            
+        return answer
+```
