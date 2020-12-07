@@ -116,7 +116,7 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
 ```
-
+思路：通过Prefix function 记录目前的答案，同时更新 helper function 的参数
 ```Python
 class Solution(object):
     def combine(self, n, k):
@@ -145,3 +145,39 @@ class Solution(object):
         return answer
 ```
 
+## 39. Combination Sum
+
+从 candidates list中找到sum为target的数字组合
+```html
+Input: candidates = [2,3,6,7], target = 7
+Output: [[2,2,3],[7]]
+```
+Solution:
+
+```Python
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        prefix = []
+        answer = []
+        
+        def helper(prefix, sufix, target):
+            if target < 0: return
+            
+            if target == 0:
+                answer.append(prefix)
+                return
+            
+            for i in range(len(sufix)):
+                helper(prefix + [sufix[i]], sufix[i:], target - sufix[i])
+                
+                
+        
+        helper(prefix, candidates, target)
+        
+        return answer
+```
