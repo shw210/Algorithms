@@ -219,3 +219,44 @@ class Solution(object):
             
         return answer
 ```
+## 90. Subsets II
+
+与78类似，只不过有duplicate numbers in the sets, 记得要先sort
+
+``` Python
+class Solution(object):
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        answer = []
+        prefix = []
+        
+        def helper(prefix, sufix, k):
+            if k == 0:
+                answer.append(prefix)
+                return
+            
+            #方法一：
+            #for num in set(sufix):
+            #    i = sufix.index(num)
+            #    helper(prefix + [sufix[i]], sufix[i + 1:], k - 1) 
+            
+            #方法二：
+            visited = set()
+            
+            for i in range(len(sufix)):
+                if sufix[i] not in visited:
+                    helper(prefix + [sufix[i]], sufix[i + 1:], k - 1)
+                    visited.add(sufix[i])
+        
+        for k in range(len(nums) + 1):
+            helper(prefix, nums.sort(), k)
+            
+            
+        return answer
+
+
+
+```
