@@ -260,3 +260,29 @@ class Solution(object):
 
 
 ```
+## 131. Palindrome Partitioning
+注意：如何判断 s 是不是 palindrome， 可直接用 s == s[::-1] 的写法
+```Python
+class Solution(object):
+    def partition(self, s):
+        """
+        :type s: str
+        :rtype: List[List[str]]
+        """
+        prefix = []
+        answer = []
+        
+        
+        def helper(prefix, sufix):
+            if not sufix:
+                answer.append(prefix)
+                
+            for i in range(len(sufix)):
+                if sufix[:i + 1] == sufix[:i + 1][::-1]:
+                    helper(prefix + [sufix[:i + 1]], sufix[i + 1:])
+                    
+        helper(prefix, s)
+        
+        
+        return answer
+```
