@@ -286,3 +286,54 @@ class Solution(object):
         
         return answer
 ```
+## 37. Sudoku Solver 数独
+思路：1. 先遍历一遍棋盘，记录下每行每列每个box已经有的数字        
+     2. 然后开始采用dfs的方法往空格里填数字i。如果失败要记得将上一个填的数字i复原为空，然后继续循环尝试填入数字 i + 1
+```Python
+class Solution(object):
+    def solveSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """
+        rows = [set() for index in range(9)]
+        cols = [set() for index in range(9)]
+        boxes = [set() for index in range(9)]
+        
+        for r in range(9):
+            for c in range(9):
+                num = board[r][c]
+                if num != '.':
+                    rows[r].add(num)
+                    cols[c].add(num)
+                    boxes[r // 3 * 3 + c // 3].add(num)
+                    
+        def helper(r, c):
+            if r == 9: return True
+            if c == 8:
+                next_r, next_c = r + 1, 0
+            else:
+                next_r, next_c = r, c + 1
+                
+            if board[r][c] != '.':
+                return helper(next_r, next_c)
+            
+            for num in range(1, 10):
+                if str(num) not in rows[r] and str(num) not in cols[c] and str(num) not in boxes[r // 3 * 3 + c // 3]:
+                    board[r][c] = str(num)
+                    rows[r].add(str(num))
+                    cols[c].add(str(num))
+                    boxes[r // 3 * 3 + c // 3].add(str(num))
+                    if helper(next_r, next_c): return True
+                    board[r][c] = "."
+                    rows[r].remove(str(num))
+                    cols[c].remove(str(num))
+                    boxes[r // 3 * 3 + c // 3].remove(str(num))
+             
+            return False
+            
+            
+            
+    
+        helper(0, 0)
+```
