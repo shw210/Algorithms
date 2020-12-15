@@ -50,3 +50,21 @@ class Solution(object):
             
         return ans
 ```
+## 172. Factorial Trailing Zeroes
+思路：找10 -》找 2* 5 -》找 5. 所以有几个5，最后就有几个零           
+10就是5的两倍，换句话说找到5了就一定能找到2，因为这是一个阶乘运算，好比5前面一定有2，15前一定有12.
+```Python
+class Solution(object):
+    def trailingZeroes(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        ans = 0
+        
+        while n > 0:
+            ans += n //5
+            n = n // 5
+            
+        return ans
+```
