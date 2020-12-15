@@ -24,3 +24,29 @@ class Solution(object):
         
         return sum(ans)
 ```
+## 504. Base 7 
+将数字转换成7进制，100 = 1 * 10^2 + 0 * 10^1 + 0 * 10^0, 用7进制表示就是 100 = 2 * 7^2 + 0 * 7^1 + 2* 7^0, 所以是'202'. 
+
+```Python
+class Solution(object):
+    def convertToBase7(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        if num == 0: return '0'
+        neg = (num < 0)
+        num = abs(num)
+        
+        ans = ''
+        
+        
+        while num > 0:
+            ans = str(num % 7) + ans
+            num = num // 7 
+        
+        if neg:
+            ans = '-' + ans
+            
+        return ans
+```
