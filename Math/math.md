@@ -69,3 +69,35 @@ class Solution(object):
             
         return ans
 ```
+## 67. Add Binary （二进制相加）
+思路：从后往前加，用carry记录进位。只要用一个index loop就行了，如果超过了string 的长度，可以根据条件跳过不加
+
+```Python
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        carry = 0
+        answer =''
+        
+        for i in range(max(len(a),len(b))):
+            added = carry
+            if i < len(a):
+                added += int(a[-i - 1])
+            if i < len(b):
+                added += int(b[-i - 1])
+            
+            carry = added // 2
+            added = added % 2
+            
+            answer += str(added)
+         
+        if carry:
+            answer += str(carry)
+        
+        return answer[::-1]
+            
+```
