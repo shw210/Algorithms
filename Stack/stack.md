@@ -1,6 +1,6 @@
 ## 394. Decode String
 思路：维护两个stack，number_stack 记录重复次数，string_stack记录 number_stack里同一行的数字前面的string是什么，current记录刚刚入库的number所对应的string.     
-loop through s, 当遇到 ']'时开始解码, meaning 该乘乘该加加
+loop through s, 当遇到 ']' 时开始解码, meaning 该乘乘该加加。note 数字的处理，如何进行进位的计算
 ```Python
 class Solution(object):
     def decodeString(self, s):
