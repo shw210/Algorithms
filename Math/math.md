@@ -101,3 +101,35 @@ class Solution(object):
         return answer[::-1]
             
 ```
+## 415. Add Strings
+注意 carry 和 temp_sum 的算法
+```Python
+class Solution(object):
+    def addStrings(self, num1, num2):
+        """
+        :type num1: str
+        :type num2: str
+        :rtype: str
+        """
+        n1, n2 = len(num1), len(num2)
+        carry = 0
+        answer = ''
+        
+        for i in range(max(n1, n2)):
+            temp_sum = carry
+            if i < n1:
+                temp_sum += int(num1[-i - 1])
+                
+            if i < n2:
+                temp_sum += int(num2[-i - 1])
+                
+            carry = temp_sum // 10
+            temp_sum = temp_sum % 10
+            
+            answer = str(temp_sum) + answer
+            
+        if carry:
+            answer = '1' + answer
+            
+        return answer
+```
