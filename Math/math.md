@@ -133,3 +133,22 @@ class Solution(object):
             
         return answer
 ```
+## 462. Minimum Moves to Equal Array Elements II
+找中位数，比如 [1, 2, 3, 4, 5]. 如果从 3 换成 2， 则 前面只有两个数字movement减一，而后面有三个数字movement加一，所以 2 会比 3 差
+```Python
+class Solution(object):
+    def minMoves2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        
+        mid = len(nums) // 2
+        ans = 0
+        
+        for num in nums:
+            ans += abs(num - nums[mid])
+            
+        return ans
+```
