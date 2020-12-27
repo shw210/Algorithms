@@ -152,3 +152,21 @@ class Solution(object):
             
         return ans
 ```
+## 169. Majority Element
+
+``` Python
+from collections import defaultdict
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        dic = defaultdict(int)
+        mid = len(nums) // 2 + 1
+        
+        for num in nums:
+            dic[num] += 1
+            if dic[num] >= mid:
+                return num
+```
