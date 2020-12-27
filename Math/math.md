@@ -192,3 +192,28 @@ class Solution(object):
         
         return major
 ```
+## 367. Valid Perfect Square
+思路：binary search, 找中间值，然后决定向左还是向右寻找
+```Python
+class Solution(object):
+    def isPerfectSquare(self, num):
+        """
+        :type num: int
+        :rtype: bool
+        """
+        start, end = 1, num
+        
+        while start <= end:
+            mid = start + (end - start) // 2
+            
+            if mid**2 == num:
+                return True
+            
+            if mid**2 > num:
+                end = mid - 1
+            elif mid**2 < num:
+                start = mid + 1
+                
+        
+        return False
+```
