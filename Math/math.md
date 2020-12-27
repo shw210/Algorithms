@@ -153,7 +153,7 @@ class Solution(object):
         return ans
 ```
 ## 169. Majority Element
-
+方法一：遍历数组建立dictionary来记录cnts，如果一个数字出现次数大于 n//2, 则为majority
 ``` Python
 from collections import defaultdict
 class Solution(object):
@@ -169,4 +169,26 @@ class Solution(object):
             dic[num] += 1
             if dic[num] >= mid:
                 return num
+```
+方法二：Boyer-Moore Majority Vote Algorithm。 思路就是先默认第一个数字是majority number, 然后遍历数组，如果当前数字不等于majority number, 则cnts - 1, 一直到cnts为零后，则update majority number为当前数字。这样的算法，真正的Majority number最后一定会胜出。
+```Python
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        major = nums[0]
+        cnts = 0
+        
+        for num in nums:
+            if num == major:
+                cnts += 1
+            else:
+                cnts -= 1
+                if cnts == 0:
+                    major = num
+                    cnts = 1
+        
+        return major
 ```
