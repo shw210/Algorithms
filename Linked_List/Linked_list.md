@@ -13,13 +13,13 @@ class Solution(object):
 ```
 ## 19. Remove Nth Node From End of List
 思路：因为linked list不容易知道它的size，所以我们必须用 two pointer 的方法找到倒数第 n 个 node 是哪个       
-注意：不要return head, 因为 head 本身也有可能是那个被去除的Node
+注意：1. 不要return head, 因为 head 本身也有可能是那个被去除的Node 2. 注意dummy node的用法
 
 ```Python
 class Solution(object):
     def removeNthFromEnd(self, head, n):
         dummy = ListNode(val = 0, next = head)
-        fast, slow = dummy, dummy
+        fast = slow = dummy
         
         i = 0
         while i <= n:
