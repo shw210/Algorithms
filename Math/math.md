@@ -217,3 +217,26 @@ class Solution(object):
         
         return False
 ```
+##238. Product of Array Except Self
+思路：建立两个list，一个记录每个数字的左边所有数字的乘积，一个记录每个数字的右边数字的乘积。最后的结果是这两个list的point product
+```Python
+class Solution(object):
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        output = []
+        n = len(nums)
+        p = 1
+        for i in range(n):
+            output.append(p)
+            p = nums[i] * p
+        
+        p = 1
+        for i in range(n - 1, -1, -1):
+            output[i] = p * output[i]
+            p = p * nums[i]
+            
+        return output
+```
