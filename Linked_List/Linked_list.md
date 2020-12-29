@@ -35,3 +35,60 @@ class Solution(object):
         return dummy.next
 
 ```
+## 24. Swap Nodes in Pairs (Medium)
+写法一：注意的就是在写 while function的时候，先确保满足条件然后再赋值
+
+```Python
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head is None: return None
+        
+        pre = dummy = ListNode(next = head)
+        
+        while pre and pre.next and pre.next.next: #先确保满足条件
+            #然后再赋值
+            slow = pre.next
+            fast = pre.next.next 
+            
+            #然后再调整Pointer的指向
+            slow.next = slow.next.next
+            fast.next = slow
+            pre.next = fast
+            
+            #然后更新pre的位置
+            pre = pre.next.next
+            
+            
+        return dummy.next
+```
+
+
+写法二：写一个swap function， pre.next and pre.next.next 都有值，然后call swap function， 这种写法更简洁
+```Python
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dummy = pre = ListNode(next = head)
+        
+        while pre and pre.next and pre.next.next:
+            self.swap(pre)
+            pre = pre.next.next
+        
+        return dummy.next
+    
+    def swap(self, pre):
+            slow = pre.next
+            fast = pre.next.next 
+            
+            slow.next = slow.next.next
+            fast.next = slow
+            pre.next = fast
+
+```
