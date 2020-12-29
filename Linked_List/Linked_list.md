@@ -36,7 +36,7 @@ class Solution(object):
 
 ```
 ## 24. Swap Nodes in Pairs (Medium)
-写法一：注意的就是在写 while function的时候，先确保满足条件然后再赋值
+写法一：注意的就是在写 while function的时候，先确保满足条件然后再赋值； 以及创建dummy node 作为第一个 pre node 的做法
 
 ```Python
 class Solution(object):
