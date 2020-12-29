@@ -128,8 +128,8 @@ class Solution(object):
 
 ## 725. Split Linked List in Parts
 注意：  
-result = [None for i in range(k)] 的写法
-使用两个指针，一个用来加 head node, 一个用来切断每一节的最后一个node
+1. result = [None for i in range(k)] 的写法        
+2. 使用两个指针，一个用来加 head node, 一个用来切断每一节的最后一个node
 ```Python
 class Solution(object):
     def splitListToParts(self, root, k):
