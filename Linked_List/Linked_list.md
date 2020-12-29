@@ -92,3 +92,48 @@ class Solution(object):
             pre.next = fast
 
 ```
+445. Add Two Numbers II
+思路：将两个list放入stack中，然后pop并且计算，然后创建结果linked list. 注意两数相加，loop结束后要对 carry 做最后的处理
+
+```Python
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        stack1, stack2 = [l1.val], [l2.val]
+        
+        current = l1
+        while current.next:
+            stack1.append(current.next.val)
+            current = current.next
+        
+        current = l2
+        while current.next:
+            stack2.append(current.next.val)
+            current = current.next
+        
+        carry = 0
+        pre = None
+        while stack1 or stack2:
+            added = carry
+            if stack1:
+                added += stack1.pop()
+            if stack2:
+                added += stack2.pop()
+                
+            carry = added // 10
+            num = added % 10
+            
+            new_node = ListNode(val = num, next = pre)
+            pre = new_node
+            
+        if carry:
+            new_node = ListNode(val = carry, next = pre)
+            
+        return new_node
+```
+
+
