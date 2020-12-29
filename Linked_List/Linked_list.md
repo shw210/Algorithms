@@ -41,10 +41,7 @@ class Solution(object):
 ```Python
 class Solution(object):
     def swapPairs(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
+       
         if head is None: return None
         
         pre = dummy = ListNode(next = head)
@@ -71,10 +68,7 @@ class Solution(object):
 ```Python
 class Solution(object):
     def swapPairs(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
+       
         dummy = pre = ListNode(next = head)
         
         while pre and pre.next and pre.next.next:
@@ -98,11 +92,7 @@ class Solution(object):
 ```Python
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
-        """
-        :type l1: ListNode
-        :type l2: ListNode
-        :rtype: ListNode
-        """
+        
         stack1, stack2 = [l1.val], [l2.val]
         
         current = l1
@@ -136,4 +126,37 @@ class Solution(object):
         return new_node
 ```
 
-
+## 725. Split Linked List in Parts
+注意：  
+result = [None for i in range(k)] 的写法
+使用两个指针，一个用来加 head node, 一个用来切断每一节的最后一个node
+```Python
+class Solution(object):
+    def splitListToParts(self, root, k):
+        
+        #计算长度
+        head = root
+        ttl_len = 0
+        while head:
+            ttl_len += 1
+            head = head.next
+        
+        avg, longer  = ttl_len // k, ttl_len % k
+        
+        result = [None for i in range(k)]
+        
+        if not root: return result
+        
+        # create answer
+        cnt = 0
+        pre, head = None, root
+        for i in range(k):
+            result[i] = head
+            for l in range(avg + max(0, longer > 0)):
+                pre = head
+                head = head.next
+            pre.next = None
+            longer -= 1
+            
+        return result
+```
