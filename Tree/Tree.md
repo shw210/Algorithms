@@ -39,3 +39,19 @@ class Solution(object):
        
 ```
 这两种方法的差别在tree为 [3,9,10,6,null,null,9,7,null,null,8] 时，很明显
+
+## 112. Path Sum
+思路： DFS. 注意test cases 要求当root 为null时，即使 sum = 0 也应该返回false. 所以写法改成了先判断 root是否为none, 往下走的时候没有走到 null node， 知道最下面一层node就判断返回值了。
+```Python
+class Solution(object):
+    def hasPathSum(self, root, sum):
+        
+        if root is None: return False
+        
+        if not root.left and not root.right and sum == root.val: return True
+        
+        
+        return self.hasPathSum(root.left, sum - root.val) or self.hasPathSum(root.right, sum - root.val)
+    
+  
+```
