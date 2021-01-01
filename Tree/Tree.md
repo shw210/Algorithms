@@ -55,3 +55,43 @@ class Solution(object):
     
   
 ```
+## 437. Path Sum III
+
+方法一思路: 对于每一个node，我会做两件事情。一是计算该node的presum并记录在dictionary里面; 二是check, check 该node的presum是否等于target, check 该node的presum 与 target的差值是否等于之前路径上的node的presum      
+注意：因为 dictionary 是mutable的，所以我们到达左边最低端以后要 cache[presum] -= 1，否则被更改后的 cache就会被carry到右边node的dfs里。同时，我们的Presum没有这个问题，因为integer不是mutable的，所以即使当我对其加一时，我其实也是新建了一个identity，所以不会影响右边的node dfs
+```Python
+class Solution(object):
+    def pathSum(self, root, sum):
+        """
+        :type root: TreeNode
+        :type sum: int
+        :rtype: int
+        """
+        if not root: return 0
+        
+        self.result = presum = 0
+        cache = {}
+        
+        self.dfs(root, presum, sum, cache)
+        
+        return self.result
+    
+    def dfs(self, root, presum, target, cache):
+        if not root: return
+        
+        presum += root.val
+        
+        if presum == target: 
+            self.result += 1
+        
+        self.result += cache.get(presum - target, 0)
+        
+        cache[presum] = cache.get(presum, 0) + 1
+        
+        
+        
+        self.dfs(root.left, presum, target, cache)
+        self.dfs(root.right, presum, target, cache)
+        
+        cache[presum] -= 1
+```
