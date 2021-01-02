@@ -57,7 +57,7 @@ class Solution(object):
 ```
 ## 437. Path Sum III
 
-方法一思路: 对于每一个node，我会做两件事情。一是计算该node的presum并记录在dictionary里面; 二是check, check 该node的presum是否等于target, check 该node的presum 与 target的差值是否等于之前路径上的node的presum      
+方法一思路: 对于每一个node，我会做两件事情。一是计算该node的presum并记录在dictionary里面; 二是check, check 该node的presum是否等于target, check 该node的presum 与 target的差值是否等于之前路径上的node的presum. 这种方法的时间空间复杂度都是 o(n）      
 注意：因为 dictionary 是mutable的，所以我们到达左边最低端以后要 cache[presum] -= 1，否则被更改后的 cache就会被carry到右边node的dfs里。同时，我们的Presum没有这个问题，因为integer不是mutable的，所以即使当我对其加一时，我其实也是新建了一个identity，所以不会影响右边的node dfs
 ```Python
 class Solution(object):
@@ -94,4 +94,34 @@ class Solution(object):
         self.dfs(root.right, presum, target, cache)
         
         cache[presum] -= 1
+```
+方法二：brute force。 从上到下一个一个作为root遍历, 只要路径上相等就 result += 1. 我们通过dfs function 来loop through tree, 通过test function 来检测当下该点作为root是多少条路径可取。
+这种方法的时间复杂度是 o(n^2), 空间复杂度是 o(n).
+```Python
+class Solution(object):
+    
+    def pathSum(self, root, sum):
+        
+        self.result = 0
+        
+        self.dfs(root, sum)
+        
+        return self.result
+        
+    def dfs(self, root, target):
+        if not root: return
+        
+        self.test(root, target)
+            
+        self.dfs(root.left, target)
+        self.dfs(root.right, target)
+        
+    def test(self, root, target):
+        if not root: return
+        
+        if root.val == target:
+            self.result += 1
+            
+        self.test(root.left, target - root.val)
+        self.test(root.right, target - root.val)
 ```
