@@ -125,3 +125,21 @@ class Solution(object):
         self.test(root.left, target - root.val)
         self.test(root.right, target - root.val)
 ```
+## 111. Minimum Depth of Binary Tree
+思路：BFS. 记录cnts, 遇到左右都没有child的，就返回cnts
+```Python
+class Solution(object):
+    def minDepth(self, root):
+        if not root: return 0
+        
+        stack = [(root, 1)]
+        
+        while stack:
+            curr, cnt = stack.pop(0)
+            if not curr.left and not curr.right: return cnt
+            if curr.left:
+                stack.append((curr.left, cnt + 1))
+            if curr.right:
+                stack.append((curr.right, cnt + 1))
+        
+```
