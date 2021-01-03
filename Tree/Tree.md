@@ -143,3 +143,50 @@ class Solution(object):
                 stack.append((curr.right, cnt + 1))
         
 ```
+## 404. Sum of Left Leaves
+思路一：BFS 
+```Python
+class Solution(object):
+    def sumOfLeftLeaves(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root: return 0
+        ttl, stack = 0, [root]
+        
+        while stack:
+            curr = stack.pop(0)
+            
+            if curr.left and curr.left.left is None and curr.left.right is None:
+                ttl += curr.left.val
+                
+            if curr.left:
+                stack.append(curr.left)
+            if curr.right:
+                stack.append(curr.right)
+                
+        return ttl
+```
+思路二：dfs     
+注意：global variable 的用法
+```Python
+class Solution(object):
+    def sumOfLeftLeaves(self, root):
+        
+        self.sum = 0
+        
+        self.dfs(root)
+        
+        return self.sum
+        
+    def dfs(self, root):
+        
+        if not root: return
+        
+        if root.left and not root.left.left and not root.left.right:
+            self.sum += root.left.val
+            
+        self.dfs(root.left)
+        self.dfs(root.right)
+```
