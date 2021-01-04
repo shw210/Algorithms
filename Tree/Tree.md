@@ -191,7 +191,9 @@ class Solution(object):
         self.dfs(root.right)
 ```
 ## 687. Longest Univalue Path
-思路：在traverse(node)中，left_len 是必须经过 node.left 的最长 univalue path，left 是 必须经过node的最长左边的 univalue path, 同理 for the right side. 然后计算此刻必须经过 node 的unipath 最长 univalue path的长度 （即 left + right) , 并且 update 目前见过的 longest. 往上返值的时候只返回 max(left, right)， 因为时返回给 自己paranet node的 left_len/right_len, 所以只能选一边的路径      
+思路：在traverse(node)中，left_len 是必须经过 node.left 的最长 univalue path，left 是 必须经过node的最长左边的 univalue path, 同理 for the right side. 然后计算此刻必须经过 node 的unipath 最长 univalue path的长度 （即 left + right) , 并且 update 目前见过的 longest. 往上返值的时候只返回 max(left, right)， 因为时返回给 自己paranet node的 left_len/right_len, 所以只能选一边的路径          
+
+
 所以整体思路就是：从上往下一直到最底层的node，在每一个node的地方，我算几件事情：1. 必须经过 自己的 left child node 的最长path，2. 必须经过自己的right child node的最长path 3. 必须经过自己的左右边的path 4. 将自己的longest path更新到 longest中 5. 将必须经过自己的左右最长path选一条返回给自己的parent node
 
 ```Python
