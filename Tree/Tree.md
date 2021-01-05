@@ -214,3 +214,25 @@ class Solution(object):
         traverse(root)
         return longest[0]
 ```
+## 337. House Robber III
+思路：在每一个node都同时记录 在这个node上 偷或不偷 可达到的最大值，通过recursive call, 从下往上返值。        
+note: 看到 tree，要想到用 recursive function, 从下往上返值
+```Python
+class Solution(object):
+    def rob(self, root):
+        ans = self.helper(root)
+        return max(ans[0],ans[1])
+    
+    def helper(self, root):
+        if not root: return [0, 0]
+        
+        res = [0, 0]
+        
+        left, right = self.helper(root.left), self.helper(root.right)
+        
+        res[0] = max(left[0], left[1]) + max(right[0], right[1]) # 不偷的话，随便child node 偷不偷，所以直接取最大值
+        res[1] = root.val + left[0] + right[0] # 偷的话，只能取child node 不偷的最大值
+        
+        return res
+    
+```
