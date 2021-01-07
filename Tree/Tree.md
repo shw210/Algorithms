@@ -236,3 +236,65 @@ class Solution(object):
         return res
     
 ```
+
+## 671. Second Minimum Node In a Binary Tree
+
+思路：往下遍历tree，如果遇到跟root value相同的点就继续travel, 如果遇到比root value更大的值但比 当前answer小的值就记录下来
+```Python
+class Solution(object):
+    def findSecondMinimumValue(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root: return -1
+        self.ans = 2**31
+        
+        def helper(node):
+            if not node: return
+            
+            if root.val < node.val < self.ans:
+                self.ans = node.val 
+                return
+            
+            helper(node.left)
+            helper(node.right)
+        
+        helper(root)
+        
+        return -1 if self.ans == 2**31 else self.ans
+```
+另一种更高级的写法：
+```Python
+class Solution(object):
+    def findSecondMinimumValue(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root: return -1 
+        
+        def helper(node): #返回candidate
+            if not node: return -1
+        
+            if node.val > root.val: return node.val  #只要比root.val大，就返回作为 candidate，并且不会继续往下visit，这点很关键
+            
+            #我们只会在有root.val的路径上追溯
+            sl = helper(node.left) #若node.val = root.val, 则check其左右child
+            sr = helper(node.right)
+            
+            if sl == -1: return sr # 自己的child只要有一个是空，则返回另外一个值 
+            if sr == -1: return sl #只有当自己的两个child都是空，或者都等于root.val 才会返回 -1
+        
+            return min(sl, sr) #左右值一定都有效，否则在上一步就返回了
+        
+        
+        return helper(root)
+         
+```
+
+
+
+
+
+
