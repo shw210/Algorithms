@@ -293,7 +293,33 @@ class Solution(object):
          
 ```
 
-
+## 637. Average of Levels in Binary Tree
+思路：BFS。 通过 range(当前size），来控制层并且 reset 当前sum 
+注意：两个integer相除，必须用 a/float(b) 才能得到 float的答案。
+```Python
+class Solution(object):
+    def averageOfLevels(self, root):
+        
+        if not root: return None
+        
+        result = []
+        stack = [root]
+        
+        while stack:
+            ttl = 0
+            size = len(stack)
+            
+            for i in range(size):
+                node = stack.pop(0)
+                ttl += node.val
+                if node.left: stack.append(node.left)
+                if node.right: stack.append(node.right)
+            
+            avg = ttl/float(size)
+            result.append(avg)
+            
+        return result
+```
 
 
 
