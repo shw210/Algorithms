@@ -190,6 +190,8 @@ class Solution(object):
         self.dfs(root.left)
         self.dfs(root.right)
 ```
+
+
 ## 687. Longest Univalue Path
 思路：在traverse(node)中，left_len 是必须经过 node.left 的最长 univalue path，left 是 必须经过node的最长左边的 univalue path, 同理 for the right side. 然后计算此刻必须经过 node 的unipath 最长 univalue path的长度 （即 left + right) , 并且 update 目前见过的 longest. 往上返值的时候只返回 max(left, right)， 因为时返回给 自己paranet node的 left_len/right_len, 所以只能选一边的路径          
 
@@ -292,6 +294,9 @@ class Solution(object):
         return helper(root)
          
 ```
+### 层次遍历
+
+使用 BFS 进行层次遍历。不需要使用两个队列来分别存储当前层的节点和下一层的节点，因为在开始遍历一层的节点时，当前队列中的节点数就是当前层的节点数，只要控制遍历这么多节点数，就能保证这次遍历的都是当前层的节点。
 
 ## 637. Average of Levels in Binary Tree
 思路：BFS。 通过 range(当前size），来控制层并且 reset 当前sum 
