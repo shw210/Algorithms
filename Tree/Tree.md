@@ -299,7 +299,7 @@ class Solution(object):
 使用 BFS 进行层次遍历。通过 range(当前size），来控制层 , 因为在开始遍历一层的节点时，当前队列中的节点数就是当前层的节点数.
 
 ### 637. Average of Levels in Binary Tree
-思路：BFS。 通过 range(当前size），来控制层并且 reset 当前sum 
+思路：BFS。 通过 range(当前size），来控制层并且 reset 当前sum         
 注意：两个integer相除，必须用 a/float(b) 才能得到 float的答案。
 ```Python
 class Solution(object):
