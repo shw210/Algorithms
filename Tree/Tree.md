@@ -418,4 +418,29 @@ class Solution(object):
         return result
 ```
 
+### 145. Binary Tree Postorder Traversal 
+后序遍历，跟144题相比只是调整了顺序
+```Python
+class Solution(object):
+    def postorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        if not root: return
+        
+        result = []
+        
+        def dfs(root):
+            if not root: return
+            
+            dfs(root.left)
+            dfs(root.right)
+            result.append(root.val)
+        
+        dfs(root)
+        
+        return result
+```
+
 ### 
