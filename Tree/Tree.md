@@ -392,4 +392,30 @@ void dfs(TreeNode root) {
     visit(root);
 }
 ```
+这类问题可参见“篮子王”讲解视频 ： https://www.youtube.com/watch?v=COBCEDPncus
 
+### 144. Binary Tree Preorder Traversal
+前序遍历
+```Python
+class Solution(object):
+    def preorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        if not root: return []
+        
+        result = []
+
+        def dfs(root, result):
+            if not root: return 
+            result.append(root.val)
+            dfs(root.left, result)
+            dfs(root.right, result)
+        
+        dfs(root, result)
+        
+        return result
+```
+
+### 
