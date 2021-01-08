@@ -294,11 +294,11 @@ class Solution(object):
         return helper(root)
          
 ```
-### 层次遍历
+## 层次遍历
 
-使用 BFS 进行层次遍历。不需要使用两个队列来分别存储当前层的节点和下一层的节点，因为在开始遍历一层的节点时，当前队列中的节点数就是当前层的节点数，只要控制遍历这么多节点数，就能保证这次遍历的都是当前层的节点。
+使用 BFS 进行层次遍历。通过 range(当前size），来控制层 , 因为在开始遍历一层的节点时，当前队列中的节点数就是当前层的节点数.
 
-## 637. Average of Levels in Binary Tree
+### 637. Average of Levels in Binary Tree
 思路：BFS。 通过 range(当前size），来控制层并且 reset 当前sum 
 注意：两个integer相除，必须用 a/float(b) 才能得到 float的答案。
 ```Python
