@@ -326,6 +326,22 @@ class Solution(object):
         return result
 ```
 
+### 513. Find Bottom Left Tree Value
+思路：就是逐层遍历的思想，到了新的一层的时候第一个node就是最左边的node
 
+```Python
+class Solution(object):
+    def findBottomLeftValue(self, root):
+        row = [root]
+        while row:
+            first = row[0].val
+            cnts = len(row)
+            for i in range(cnts):
+                node = row.pop(0)
+                if node.left: row.append(node.left)
+                if node.right: row.append(node.right)
+                    
+        return first
+```
 
 
