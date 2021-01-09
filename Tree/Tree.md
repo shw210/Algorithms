@@ -443,4 +443,22 @@ class Solution(object):
         return result
 ```
 
-### 
+### 94. Binary Tree Inorder Traversal
+
+```Python
+class Solution(object):
+    def inorderTraversal(self, root):
+        
+        ans = []
+        
+        def dfs(root):
+            if not root: return
+            
+            dfs(root.left)
+            ans.append(root.val)
+            dfs(root.right)
+            
+        dfs(root)
+        
+        return ans
+```
