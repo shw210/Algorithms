@@ -462,3 +462,22 @@ class Solution(object):
         
         return ans
 ```
+## BST(二叉查找树）
+
+### 669. Trim a Binary Search Tree
+思路：trimBST funciton就是一个去掉不服条件的node，返回相应node的过程      
+注意：BST的性质就是左边的node比root小，右边的node比root大
+```Python
+class Solution(object):
+    def trimBST(self, root, low, high):
+        if not root: return
+        
+        if root.val < low: return self.trimBST(root.right, low, high) #这就是trim的过程，超了边界就连root整边砍掉
+        if root.val > high: return self.trimBST(root.left, low, high)
+        
+        root.left = self.trimBST(root.left, low, high) #root符合了条件被被保留，接着看自己的左右child是否符合条件
+        root.right = self.trimBST(root.right, low, high)
+        
+        return root
+```
+
