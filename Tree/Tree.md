@@ -481,7 +481,7 @@ class Solution(object):
         return root
 ```
 ### 230. Kth Smallest Element in a BST
-To solve the problem, one could use the property of BST : inorder traversal of BST is an array sorted in the ascending order.       
+BST的性质 : inorder traversal of BST is an array sorted in the ascending order.       
 认清 inorder traversal的本质，先recursive call左边，然后轮到自己处理function, 然后到右边。这里的function就是在count次序
 ```Python
 class Solution(object):
