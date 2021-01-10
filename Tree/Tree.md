@@ -563,3 +563,26 @@ class Solution(object):
         if left: return left # 都在左边，left就是碰见的第一个值，即root
         if right: return right
 ```
+### 108. Convert Sorted Array to Binary Search Tree
+思路：recursive call, 不断返回nums中间的数作为sub tree的root
+```Python
+class Solution(object):
+    def sortedArrayToBST(self, nums):
+        
+        if not nums: return None
+        
+        def helper(nums, start, end):
+            if start > end: return None 
+            
+            mid = start + (end - start) // 2
+            
+            node = TreeNode(val = nums[mid])
+            node.left = helper(nums, start, mid - 1)
+            node.right = helper(nums, mid + 1, end)
+            
+            return node
+        
+        root = helper(nums, 0, len(nums) - 1)
+        
+        return root
+```
