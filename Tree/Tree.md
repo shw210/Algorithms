@@ -480,4 +480,33 @@ class Solution(object):
         
         return root
 ```
-
+### 230. Kth Smallest Element in a BST
+To solve the problem, one could use the property of BST : inorder traversal of BST is an array sorted in the ascending order.       
+认清 inorder traversal的本质，先recursive call左边，然后轮到自己处理function, 然后到右边。这里的function就是在count次序
+```Python
+class Solution(object):
+    def kthSmallest(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: int
+        """
+    
+        nums = [0, None]
+        
+        self.dfs(root, nums, k)
+        
+        return nums[1]
+    
+    def dfs(self, root, nums, k):
+        if not root: return 
+        
+        self.dfs(root.left, nums, k)
+        
+        nums[0] += 1                          #这就是function的本体，处理自己，在count是第几个数字
+        if nums[0] == k: 
+            nums[1] = root.val
+            return
+        
+        self.dfs(root.right, nums, k)
+```
