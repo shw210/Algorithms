@@ -546,3 +546,20 @@ class Solution(object):
             return self.lowestCommonAncestor(root.right, p, q)
         else: return root
 ```
+### 236. Lowest Common Ancestor of a Binary Tree
+思路：与235相似，只不过现在我们要深入tree里面寻找p和q，因为无法运用BST的性质了
+```Python
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+       
+        #Edge/Condition
+        if not root: return None
+        if root == p or root == q: return root #遇到第一个值就会返回
+        
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        
+        if left and right: return root #左右都有值，返回root
+        if left: return left # 都在左边，left就是碰见的第一个值，即root
+        if right: return right
+```
