@@ -533,3 +533,16 @@ class Solution(object):
         
         return root
 ```
+### 235. Lowest Common Ancestor of a Binary Search Tree
+思路：recursive call. 如果两个node都在root的左边，就继续在root左边寻找；若都在右边，就在root右边寻找，若在root两边，就直接返回root. 利用BST的性质，比较值的大小就可以判断是向左寻找还是向右寻找
+
+```Python
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        
+        if p.val < root.val and q.val < root.val: 
+            return self.lowestCommonAncestor(root.left, p, q)
+        elif p.val > root.val and q.val > root.val:
+            return self.lowestCommonAncestor(root.right, p, q)
+        else: return root
+```
