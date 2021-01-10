@@ -510,3 +510,26 @@ class Solution(object):
         
         self.dfs(root.right, nums, k)
 ```
+### 538. Convert BST to Greater Tree
+思路：跟inorder transvers一个思想，从右边child开始遍历，然后处理自己，然后处理左边child
+```Python
+class Solution(object):
+    def convertBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        self.sum = 0
+        
+        def dfs(root):
+            if not root: return
+            
+            dfs(root.right)
+            root.val += self.sum   #主题function，处理完了右边，现在处理自己，然后处理左边
+            self.sum = root.val
+            dfs(root.left)
+            
+        dfs(root)
+        
+        return root
+```
