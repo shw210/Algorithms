@@ -586,3 +586,34 @@ class Solution(object):
         
         return root
 ```
+
+### 109. Convert Sorted List to Binary Search Tree
+思路：recursive call. 主体function做两件事：1.通过two pointers找到中间的点 2.找到中间的点以后要将前面的点与其断开. 这个中间的点就是 subtree的root，然后recursive call on 剩下的linked list 继续寻找 root的左边child 和 右边child (即sub-subtree的root）
+
+```Python
+class Solution(object):
+    def sortedListToBST(self, head):
+       
+        if not head: return None
+        if not head.next: return TreeNode(head.val)
+        
+        def findMid(head):
+            
+            slow = fast = head
+            while fast and fast.next:
+                prev = slow
+                slow = slow.next
+                fast = fast.next.next
+            
+            prev.next = None
+            
+            return slow
+    
+        mid = findMid(head)
+        root = TreeNode(mid.val)
+        root.left = self.sortedListToBST(head)
+        root.right = self.sortedListToBST(mid.next)
+        
+        return root
+    ```
+
