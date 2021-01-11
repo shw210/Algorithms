@@ -646,3 +646,24 @@ class Solution(object):
                 
         return False
 ```
+### 530. Minimum Absolute Difference in BST
+利用二叉查找树的中序遍历为有序的性质，计算中序遍历中临近的两个节点之差的绝对值，取最小值。
+```Python
+class Solution(object):
+    def getMinimumDifference(self, root):
+        self.minDiff = float('inf')
+        self.preNode = None
+    
+        self.inOrder(root)
+        
+        return self.minDiff
+    
+    def inOrder(self,root):
+        if not root: return None
+        
+        left = self.inOrder(root.left)
+        if self.preNode:
+            self.minDiff = min(self.minDiff, abs(root.val - self.preNode.val))
+        self.preNode = root
+        right = self.inOrder(root.right)
+```
