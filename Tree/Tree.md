@@ -617,3 +617,32 @@ class Solution(object):
         return root
     ```
 
+### 653. Two Sum IV - Input is a BST
+思路：先将tree变成ascending sorted list，然后用two pointers
+```Python
+class Solution(object):
+    def findTarget(self, root, k):
+        
+        ans = []
+        
+        def helper(root):
+            if not root: return
+            
+            helper(root.left)
+            ans.append(root.val)
+            helper(root.right)
+            
+        
+        helper(root)
+        
+        p1, p2 = 0, len(ans) - 1
+        
+        while p1 < p2:
+            ttl = ans[p1] + ans[p2]
+            
+            if ttl == k: return True
+            if ttl < k: p1 += 1
+            else: p2 -= 1
+                
+        return False
+```
