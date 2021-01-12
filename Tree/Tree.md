@@ -703,3 +703,57 @@ class Solution(object):
         
         self.inOrder(node.right)
 ```
+### 208. Implement Trie (Prefix Tree)
+主要理解Trie的数据结构
+```Python
+class TrieNode:
+# Initialize your data structure here.
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+
+class Trie(object):
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.root = TrieNode()
+
+    def insert(self, word):
+        """
+        Inserts a word into the trie.
+        :type word: str
+        :rtype: None
+        """
+        current = self.root
+        for letter in word:
+            if letter not in current.children: 
+                current.children[letter] = TrieNode()
+            current = current.children[letter]
+        current.isWord = True
+
+    def search(self, word):
+        """
+        Returns if the word is in the trie.
+        :type word: str
+        :rtype: bool
+        """
+        node = self.root
+        for l in word:
+            if l not in node.children: return False
+            node = node.children[l]
+        return node.isWord
+
+    def startsWith(self, prefix):
+        """
+        Returns if there is any word in the trie that starts with the given prefix.
+        :type prefix: str
+        :rtype: bool
+        """
+        node = self.root
+        for l in prefix:
+            if l not in node.children: return False
+            node = node.children[l]
+        return True
+```
