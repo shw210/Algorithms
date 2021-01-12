@@ -667,3 +667,39 @@ class Solution(object):
         self.preNode = root
         right = self.inOrder(root.right)
 ```
+### 501. Find Mode in Binary Search Tree
+思路：inorder traverse the tree, 记录前一个node是啥，cnts
+```Python
+class Solution(object):
+    def findMode(self, root):
+        self.cnt = 1
+        self.max = 0
+        self.pre = None
+        self.results = []
+        
+        self.inOrder(root)
+        
+        return self.results
+        
+    def inOrder(self, node):
+        if not node: return
+        
+        self.inOrder(node.left)
+        
+        if self.pre:
+            if self.pre.val == node.val:
+                self.cnt += 1
+            else:
+                self.cnt = 1
+                
+        if self.cnt > self.max:
+            self.results = []
+            self.results.append(node.val)
+            self.max = self.cnt
+        elif self.cnt == self.max:
+            self.results.append(node.val)
+         
+        self.pre = node
+        
+        self.inOrder(node.right)
+```
