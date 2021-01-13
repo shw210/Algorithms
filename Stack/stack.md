@@ -59,3 +59,23 @@ class Solution(object):
             
         return res
 ```
+## 739. Daily Temperatures
+
+思路：用一个stack记录一直是往下降的趋势的temperature的index，直到遇到往上升的temperature, 就把stack里的最后一个index pop出来。
+具体步骤：通过index遍历T，如果遇到下一个t比上一个t大的情况，就把上一个t的index pop 出来并且相减，把答案放在相应的answer位置上，然后继续比较直到比上一个t小就把当前index入栈
+
+```Python
+class Solution(object):
+    def dailyTemperatures(self, T):
+        
+        stack = [0]
+        answer = [0] * len(T)
+        
+        for i in range(1, len(T)):
+            while stack and T[i] > T[stack[-1]]:
+                answer[stack[-1]] = i - stack[-1]
+                stack.pop()
+            stack.append(i)
+                
+        return answer
+```
