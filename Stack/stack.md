@@ -60,8 +60,7 @@ class Solution(object):
         return res
 ```
 ## 739. Daily Temperatures
-
-思路：用一个stack记录一直是往下降的趋势的temperature的index，直到遇到往上升的temperature, 就把stack里的最后一个index pop出来。
+思路：用一个stack记录一直是往下降的趋势的temperature的index，直到遇到往上升的temperature, 就把stack里的最后一个index pop出来。     
 具体步骤：通过index遍历T，如果遇到下一个t比上一个t大的情况，就把上一个t的index pop 出来并且相减，把答案放在相应的answer位置上，然后继续比较直到比上一个t小就把当前index入栈
 
 ```Python
@@ -78,4 +77,25 @@ class Solution(object):
             stack.append(i)
                 
         return answer
+```
+## 503. Next Greater Element II
+思路：与739相似，只不过现在是循环数组所以要循环两遍，然后返回的是数字本身而不是index      
+注意：循环两遍的写法
+
+```Python
+class Solution(object):
+    def nextGreaterElements(self, nums):
+       
+        stack = [0]
+        n = len(nums)
+        ans = [-1] * n
+        
+        for i in range(1, 2 * n):
+            while stack and nums[i % n] > nums[stack[-1]]:
+                ans[stack[-1]] = nums[i % n]
+                stack.pop()
+                
+            stack.append(i % n)
+            
+        return ans
 ```
