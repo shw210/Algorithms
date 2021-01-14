@@ -69,3 +69,26 @@ class Solution(object):
         return max_len
                 
 ```
+方法二思路：用set来做。在set中寻找各个数段的最左边界, 即（num - 1) 不在set里的num，然后向右遍历计算长度
+```Python
+class Solution(object):
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        set_nums = set(nums)
+        max_cnt = 0
+        
+        for num in set_nums:
+            cnt = 1
+            
+            if num - 1 not in set_nums:
+                while num + 1 in set_nums:
+                    cnt += 1
+                    num += 1
+                
+            max_cnt = max(max_cnt, cnt)
+            
+        return max_cnt
+```
