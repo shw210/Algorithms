@@ -25,3 +25,23 @@ class Solution(object):
         return True
 ```
 注意 cnts[ord(letter) - ord('a')] 的写法
+
+### 409. Longest Palindrome
+用collections.counter()来统计每个字母出现次数
+```Python
+class Solution(object):
+    def longestPalindrome(self, s):
+        
+        dic = collections.Counter(s)
+        result = 0
+        single = 0
+        
+        for letter in dic:
+            result += dic[letter] // 2 * 2  # 注意这个写法
+        
+        if result < len(s): result += 1  # 这个条件下 s 中一定有单个未使用的字符存在，可以把这个字符放到回文的最中间
+            
+        return result
+
+```
+
