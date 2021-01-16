@@ -44,4 +44,21 @@ class Solution(object):
         return result
 
 ```
-
+### 205. Isomorphic Strings
+思路一：写两个dictionary，确保是一对一的关系                                                                                                                                     注意：如果有两个类似的段落，考虑用一个function更加简洁。                          
+```Python
+class Solution(object):
+    def isIsomorphic(self, s, t):
+        return self.helper(s, t) and self.helper(t, s)
+    
+    def helper(self, s, t):
+        dic_s = {}
+        l = len(s)
+        
+        for i in range(l):
+            if s[i] not in dic_s:
+                dic_s[s[i]] = t[i]
+            elif dic_s[s[i]] != t[i]:
+                return False        
+        return True
+```
