@@ -99,3 +99,25 @@ class Solution(object):
             
         return cnts
 ```
+
+### 9. Palindrome Number
+注意数字反转的方法
+
+```Python
+class Solution(object):
+    def isPalindrome(self, x):
+      
+        if x < 0: return False
+            
+        return x == self.reverse(x)
+    
+    def reverse(self, x):
+        right = 0
+        
+        while x > 0:
+            right = right * 10 + x % 10   # 注意数字反转的方法
+            x = x // 10
+            
+        return right
+```
+
