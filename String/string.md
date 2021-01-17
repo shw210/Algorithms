@@ -80,3 +80,22 @@ class Solution(object):
             
         return True
 ```
+### 647. Palindromic Substrings
+思路：遍历各个character和间隙作为panlindoromes的center，从center开始向两边展开查看其是否是panlindromes.
+
+```Python
+class Solution(object):
+    def countSubstrings(self, s):
+        
+        cnts = 0
+        
+        for i in range(2 * len(s) - 1):
+            left = i // 2
+            right = i // 2 + i % 2
+            while left >= 0 and right <= len(s) - 1 and s[left] == s[right]:
+                cnts += 1
+                left -= 1
+                right += 1
+            
+        return cnts
+```
