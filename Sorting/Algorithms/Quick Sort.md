@@ -58,3 +58,5 @@ def sortIntegers(self, A):
         self.quickSort(A, start, right)
         self.quickSort(A, left, end)
 ```
+
+整体来说，感觉写法一更不容易出错
