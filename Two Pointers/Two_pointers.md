@@ -1,4 +1,3 @@
-## 九章算法
 
 ### 125. Valid Palindrome
 
