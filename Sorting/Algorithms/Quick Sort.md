@@ -41,9 +41,9 @@ def sortIntegers(self, A):
         pivot = A[start + (end - start) // 2]
         
         left, right = start, end 
-        # 注意是 left <= right, 不是 <
+        # 注意是 left <= right, 不是 < , 防止进入死循环
         while left <= right:
-                                    #注意是 A[left] < pivot, 不是 <=
+                                    #注意是 A[left] < pivot, 不是 <=， 为了保证相同数字尽量平均分配在pivot两边
             while left <= right and A[left] < pivot:
                 left += 1 
             
