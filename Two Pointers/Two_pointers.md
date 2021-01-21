@@ -70,7 +70,32 @@ class Solution(object):
             
 ```
 
+## Partition 型题目 （排序）
 
+### 75. Sort Colors
+思路: 'left' tracks where 0 goes next; 'right' tracks where 2 goes next; 'i' travel through the list        
+we need to make sure all the numbers before 'left' is zeros, and all the numbers between 'right' and 'i' are 1s, and all the numbers after 'right' are 2s. that's why when we switch 'right' and i, we need to check what i is again and thus don't do i+=1; but when we switch 'left' and i, we don't need to check what i is and do i+=1. Note that we need to do while loop till i <= right, to make sure that i travel through the whole list
+
+```Python
+class Solution(object):
+    def sortColors(self, nums):
+       
+        left, i, right = 0, 0, len(nums) - 1
+        
+        while i <= right:
+            
+            if nums[i] == 0:
+                nums[i], nums[left] = nums[left], nums[i]
+                i += 1
+                left += 1
+            elif nums[i] == 2:
+                nums[right], nums[i] = nums[i], nums[right]
+                right -= 1
+            else:
+                i += 1
+                
+                
+```
 
 
 
