@@ -13,10 +13,9 @@ while L <= R:
 		L = mid + 1
 		
 return ans
+```
 
 
-```Python
-''' 
 problems suited for binary search: sorted array, looking for some target that satisfied some conditions
 
 General idea: 
