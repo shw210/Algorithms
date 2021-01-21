@@ -71,7 +71,7 @@ class Solution:
 
 # Leetcode
 ### 34. Find First and Last Position of Element in Sorted Array
-我们只介绍怎么 find last position of element in sorted array, first position 同理		
+我们只介绍怎么 find last position of element in sorted array, first position 同理				
 写法一：
 ```Python
 def lastPosition(self, nums, target):
