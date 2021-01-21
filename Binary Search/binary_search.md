@@ -1,4 +1,4 @@
-# 模版介绍
+# 介绍
 ## 方法一 Implementation
 ```Python
 L = 0, R = N - 1
@@ -67,4 +67,59 @@ class Solution:
 二分法的模板中，整个程序架构分为两个部分：		
 通过 while 循环，将区间范围从 n 缩小到 2 （只有 start 和 end 两个点）。		
 在 start 和 end 中判断是否有解。		
-而普通的start < end 或者 start <= end 在寻找目标最后一次出现的位置的时候，可能出现死循环。		
+而普通的start < end 或者 start <= end 在寻找目标最后一次出现的位置的时候，可能出现死循环。
+
+# Leetcode
+### 34. Find First and Last Position of Element in Sorted Array
+我们只介绍怎么 find last position of element in sorted array, first position 同理		
+写法一：
+```Python
+def lastPosition(self, nums, target):
+        # write your code here
+        if not nums: return -1
+        
+        start, end = 0, len(nums) - 1 
+        
+        ans = -1
+        
+        while start <= end:
+            
+            mid = (start + end) // 2
+            
+            if nums[mid] == target:
+                ans = mid
+                start = mid + 1 
+            elif nums[mid] > target:
+                end = mid - 1 
+            else: # nums[mid] < target
+                start = mid + 1 
+                
+        return ans 
+```
+
+写法二：
+```Python
+class Solution:
+    
+    def lastPosition(self, nums, target):
+        # write your code here
+        
+        if not nums: return -1
+        
+        start, end = 0, len(nums) - 1 
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if nums[mid] == target:
+                start = mid
+            elif nums[mid] > target:
+                end = mid
+            else: #nums[mid] < target
+                start = mid
+            
+        if nums[end] == target: return end 
+        if nums[start] == target: return start
+        return -1
+```
+
