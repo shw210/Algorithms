@@ -42,7 +42,7 @@ class Solution:
             # python 没有 overflow 的问题，直接 // 2 就可以了
             mid = (start + end) // 2
 
-            # > , =, < 的逻辑先分开写，然后在看看 = 的情况是否能合并到其他分支里
+            # > , =, < 的逻辑先分开写，然后在看看 = 的情况是否能合并到其他分支里，偷懒写法，不容易出错
             if nums[mid] < target:
                 start = mid
             elif nums[mid] == target:
@@ -61,7 +61,7 @@ class Solution:
 
         return -1
 ```
-如果你之前写过二分的题目，你会发现在二分问题中，最常见的错误就是死循环。而这个模版一定不会出现死循环。为什么呢？		
+在二分问题中，最常见的错误就是死循环。而这个模版一定不会出现死循环。为什么呢？
 因为我们这边使用了start + 1 < end, 而不是start < end 或者 start <= end		
 二分法的模板中，整个程序架构分为两个部分：		
 通过 while 循环，将区间范围从 n 缩小到 2 （只有 start 和 end 两个点）。		
