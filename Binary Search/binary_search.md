@@ -131,12 +131,11 @@ def mountainSequence(self, nums):
         # write your code here
         # 思路：找到第一个比后面的数字大的number
         
+	if not nums: return -1
+	
         start, end = 0, len(nums) - 1 
-        
         while start + 1 < end:
-            
             mid = (start + end) // 2
-            
             if nums[mid] > nums[mid + 1]:
                 end = mid
             else: 
