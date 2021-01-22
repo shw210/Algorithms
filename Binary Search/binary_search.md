@@ -69,8 +69,8 @@ class Solution:
 在 start 和 end 中判断是否有解。		
 而普通的start < end 或者 start <= end 在寻找目标最后一次出现的位置的时候，可能出现死循环。
 
-# Leetcode
-### 34. Find First and Last Position of Element in Sorted Array
+# 题目
+### leetcode 34. Find First and Last Position of Element in Sorted Array
 我们只介绍怎么 find last position of element in sorted array, first position 同理		
 
 写法一：
@@ -123,4 +123,25 @@ class Solution:
         if nums[start] == target: return start
         return -1
 ```
+### Lintcode 585. Maximum Number in Mountain Sequence
 
+写法二：
+```Python
+def mountainSequence(self, nums):
+        # write your code here
+        # 思路：找到第一个比后面的数字大的number
+        
+        start, end = 0, len(nums) - 1 
+        
+        while start + 1 < end:
+            
+            mid = (start + end) // 2
+            
+            if nums[mid] > nums[mid + 1]:
+                end = mid
+            else: 
+                start = mid 
+                
+        
+        return max(nums[start], nums[end])
+```
