@@ -152,6 +152,47 @@ class TwoSum(object):
         return False
 ```
 
+### 15. 3Sum
+
+思路：先排序。 假设 a <= b <= c。for 循环 a ，找 b + c = -a 即可调用 two sum 的算法来解决。这样就通过降维，降时间复杂度降到了O(n^2).
+
+如果处理duplicate numbers呢？通过记录上一个数字，或者上一个pair of numbers
+
+```Python
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if len(nums) <= 2: return []
+        
+        nums.sort()
+        result = []
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]: 
+                continue
+            self.twoSum(-nums[i], nums, i + 1, len(nums) - 1, result)
+        
+        return result
+    
+    def twoSum(self, target, nums, left, right, result):
+        
+        last_pair = None
+        while left < right:
+            ttl = nums[left]  + nums[right]
+            if ttl == target and (nums[left], nums[right]) != last_pair:
+                result.append([-target, nums[left], nums[right]])
+                last_pair = (nums[left], nums[right])
+            
+            elif ttl > target:
+                right -= 1
+            else:
+                left += 1
+        
+        return result
+```
+
 
 ## Partition 型题目 （排序）
 
