@@ -106,6 +106,51 @@ class TwoSum(object):
         return False
         
 ```
+方法二： Two pointers. 
+##### AddNumber - O(n)      
+##### FindTwoSum - O(n)     
+其中 AddNumber 可以使用 Insertion Sort 的方法. 先将数加到数组的末尾,然后一直往前交换到它的所在位置
+```Python
+class TwoSum(object):
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.numbers = []
+        
+
+    def add(self, number):
+        """
+        Add the number to an internal data structure..
+        :type number: int
+        :rtype: None
+        """
+        self.numbers.append(number)
+        i = len(self.numbers)  - 1
+        while i >= 1 and self.numbers[i] < self.numbers[i - 1]:
+            self.numbers[i], self.numbers[i - 1] = self.numbers[i - 1], self.numbers[i]
+            i -= 1
+
+    def find(self, value):
+        """
+        Find if there exists any pair of numbers which sum is equal to the value.
+        :type value: int
+        :rtype: bool
+        """
+        if not self.numbers: return False
+        
+        left, right = 0, len(self.numbers) - 1 
+        while left < right:
+            ttl = self.numbers[left] + self.numbers[right]
+            if ttl == value: return True
+            if ttl < value:
+                left += 1
+            elif ttl > value:
+                right -= 1
+        
+        return False
+```
 
 
 ## Partition 型题目 （排序）
