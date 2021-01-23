@@ -195,7 +195,7 @@ class Solution(object):
 
 ### 611. Valid Triangle Number 
 思路：使用双指针算法。 for 循环最大边的位置 i，接下来的任务就是在 0~i-1 之间找到两数之和 > Si
-
+Note: 求具体方案 VS. 求方案个数。 求具体方案只能一个个数出来,时间复杂度 O(n^3). 求不可以重复的方案数也只能一个个数. 求可以重复的方案数可以批量累加,时间复杂度 O(n^2)
 ```Python
 class Solution(object):
     def triangleNumber(self, nums):
