@@ -193,6 +193,30 @@ class Solution(object):
         return result
 ```
 
+### 611. Valid Triangle Number 
+思路：使用双指针算法。 for 循环最大边的位置 i，接下来的任务就是在 0~i-1 之间找到两数之和 > Si
+
+```Python
+class Solution(object):
+    def triangleNumber(self, nums):
+       
+        if len(nums) <= 2: return 0
+        nums.sort()
+        
+        cnt = 0
+        for i in range(len(nums)):
+            
+            left, right = 0, i - 1
+            while left < right:
+                ttl = nums[left] + nums[right]
+                if ttl > nums[i]:
+                    cnt += right - left 
+                    right -= 1
+                else:
+                    left += 1
+        
+        return cnt
+```
 
 ## Partition 型题目 （排序）
 
