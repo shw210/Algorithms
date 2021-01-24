@@ -400,7 +400,33 @@ def partitionArray(self, nums, k):
         
         return left 
 ```
-思路二 但这种方法交换数字的次数可能过多
+另外，需要注意一下 partition array 和 quick sort 里面的partition 的区别 (> k 不是 >= k)，quick sort 里的partition 的写法如下：
+``` Python 
+def partition(self, nums, k):
+        # write your code here
+        left, right = 0, len(nums) - 1 
+        
+        while left <= right:
+            while left <= right and nums[left] < k:
+                left += 1 
+            
+            while left <= right and nums[right] > k: # 注意是 > k 不是 >= k，这种差别就是为了保证 partiton funciton 能够将数字尽量平均的分配在k两边，拿个例子【1，1，1，1，1，11】, k = 1 过一遍就清楚了
+                right -= 1 
+            
+            if left <= right:  #注意一定要有这个条件 
+                nums[left], nums[right] = nums[right], nums[left] 
+                left += 1  
+                right -= 1 
+            
+        
+        return left 
+
+```
+
+
+
+
+partition array 思路二 但这种方法交换数字的次数可能过多
 ```Python
 def partitionArray(self, nums, k):
         # write your code here
