@@ -452,6 +452,41 @@ def partitionArray(self, nums, k):
         return next_small_index
 ```
 
+### Lintcode 144. Interleaving Positive and Negative Numbers
+先把正负数 partition 开，然后再相向双指针进行交换。
+
+```Python
+def rerange(self, A):
+        # write your code here
+        
+        left, right = 0, len(A) - 1 
+        
+        while left <= right:
+            while left <= right and A[left] < 0:
+                left += 1 
+            while left <= right and A[right] > 0:
+                right -= 1 
+                
+            if left <= right:
+                A[left], A[right] = A[right], A[left] 
+                left += 1 
+                right -= 1 
+            
+        neg_cnt, pos_cnt = left, len(A) - left
+        
+        if pos_cnt < neg_cnt: 
+            start, end = 1, len(A) - 1 
+        elif pos_cnt > neg_cnt:
+            start, end = 0, len(A) - 2
+        else:
+            start, end = 0, len(A) - 1
+        
+        while start <= end:
+            A[start], A[end] = A[end], A[start] 
+            start += 2
+            end -= 2 
+        
+```
 
 
 ### 75. Sort Colors
