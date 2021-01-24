@@ -25,7 +25,7 @@ def quick_sort(array, start, end):
     quick_sort(array, p+1, end)
 ```
 
-## 写法二
+## 写法二 （推荐）
 
 ```Python
 def sortIntegers(self, A):
@@ -59,4 +59,4 @@ def sortIntegers(self, A):
         self.quickSort(A, left, end)
 ```
 
-整体来说，感觉写法一更不容易出错
+更加推荐写法二
