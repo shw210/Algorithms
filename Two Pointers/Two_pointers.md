@@ -343,6 +343,22 @@ class Solution:
         return pairs
 ```
 
+### 454. 4Sum II
+时间复杂度和空间复杂度均为 O(N^2). 将 a,b 组成的和及其组成方案个数统计在hash里，然后再去枚举 c,d 的组合，然后找 -(c+d) 在 hash 里的组合数。
+
+```Python
+def fourSumCount(self, A, B, C, D):
+        counter = {}
+        for a in A:
+            for b in B:
+                counter[a + b] = counter.get(a + b, 0) + 1
+        answer = 0
+        for c in C:
+            for d in D:
+                answer += counter.get(-c - d, 0)
+        return answer
+```
+
 ## Partition 型题目 （排序）
 
 ### 75. Sort Colors
