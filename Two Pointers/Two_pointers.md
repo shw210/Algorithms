@@ -426,7 +426,7 @@ def partition(self, nums, k):
         return left 
 
 ```
-
+partition 类的双指针模版 需要注意的最后一个问题就是，左右比较时永远都写成 left <= right, 这样就能保证退出循环时，left 指向右侧第一个位置
 
 
 
