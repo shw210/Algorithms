@@ -399,11 +399,11 @@ Return the partitioning index, i.e the first index i nums[i] >= k.
 
 伪代码如下：
 
-令left = 0，right = length-1。
-当nums[left] < k时，left指针向右移动。
-当nums[right] >= k时，right指针向左移动。
-如果left <= right，交换两个值。
-如果left > right，返回left作为最终结果，否则返回第二步。
+令left = 0，right = length-1。     
+当nums[left] < k时，left指针向右移动。        
+当nums[right] >= k时，right指针向左移动。     
+如果left <= right，交换两个值。      
+如果left > right，返回left作为最终结果，否则返回第二步。        
 
 
 
