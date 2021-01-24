@@ -361,6 +361,61 @@ def fourSumCount(self, A, B, C, D):
 
 ## Partition 型题目 （排序）
 
+### Lintcode 31. Partition Array
+
+Given an array nums of integers and an int k, partition the array (i.e move the elements in "nums") such that:      
+
+All elements < k are moved to the left      
+All elements >= k are moved to the right        
+Return the partitioning index, i.e the first index i nums[i] >= k.      
+
+思路一：     
+通过头尾指针跳过小于k的前缀和大于等于k的后缀，可以找到与第一个大于等于k的值和最后一个小于k的值。进行交换后可达到划分数组的目的，直到找到两个指针相遇为止。
+
+伪代码如下：
+
+令left = 0，right = length-1。     
+当nums[left] < k时，left指针向右移动。        
+当nums[right] >= k时，right指针向左移动。     
+如果left <= right，交换两个值。      
+如果left > right，返回left作为最终结果，否则返回第二步。
+
+```Python
+def partitionArray(self, nums, k):
+        # write your code here
+        left, right = 0, len(nums) - 1 
+        
+        while left <= right:
+            while left <= right and nums[left] < k:
+                left += 1 
+            
+            while left <= right and nums[right] >= k:
+                right -= 1 
+            
+            if left <= right:  #注意一定要有这个条件 
+                nums[left], nums[right] = nums[right], nums[left] 
+                left += 1  
+                right -= 1 
+            
+        
+        return left 
+```
+思路二 但这种方法交换数字的次数可能过多
+```Python
+def partitionArray(self, nums, k):
+        # write your code here
+        next_small_index = 0
+        
+        for i in range(len(nums)):
+            if nums[i] < k:
+                nums[i], nums[next_small_index] = nums[next_small_index], nums[i]
+                next_small_index += 1 
+        
+        return next_small_index
+```
+
+
+
 ### 75. Sort Colors
 思路: 'left' tracks where 0 goes next; 'right' tracks where 2 goes next; 'i' travel through the list        
 we need to make sure all the numbers before 'left' is zeros, and all the numbers between 'right' and 'i' are 1s, and all the numbers after 'right' are 2s. that's why when we switch 'right' and i, we need to check what i is again and thus don't do i+=1; but when we switch 'left' and i, we don't need to check what i is and do i+=1. Note that we need to do while loop till i <= right, to make sure that i travel through the whole list
@@ -386,24 +441,7 @@ class Solution(object):
                 
 ```
 
-### Lintcode 31. Partition Array
-
-Given an array nums of integers and an int k, partition the array (i.e move the elements in "nums") such that:      
-
-All elements < k are moved to the left      
-All elements >= k are moved to the right        
-Return the partitioning index, i.e the first index i nums[i] >= k.      
-
-思路：     
-通过头尾指针跳过小于k的前缀和大于等于k的后缀，可以找到与第一个大于等于k的值和最后一个小于k的值。进行交换后可达到划分数组的目的，直到找到两个指针相遇为止。
-
-伪代码如下：
-
-令left = 0，right = length-1。     
-当nums[left] < k时，left指针向右移动。        
-当nums[right] >= k时，right指针向左移动。     
-如果left <= right，交换两个值。      
-如果left > right，返回left作为最终结果，否则返回第二步。        
+        
 
 
 
