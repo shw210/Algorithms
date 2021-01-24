@@ -400,9 +400,10 @@ def partitionArray(self, nums, k):
         
         return left 
 ```
-另外，需要注意一下 partition array 和 quick sort 里面的partition 的区别. Partition Array 需要严格的左半部分 < k,右半部分 >= k
-Quick Sort / Quick Select 只需要左半部分整体 <= 右半部分即可
-如果 Quick Sort / Quick Select 把 == pivot 的严格划分到左边或者右边,会导致极端情况发生从而时间复杂度很容易退化到 O(n^2),如排序 [1, 1, 1, 1, 1]
+另外，需要注意一下 partition array 和 quick sort 里面的partition 的区别. Partition Array 需要严格的左半部分 < k,右半部分 >= k. 
+Quick Sort / Quick Select 只需要左半部分整体 <= 右半部分即可. 
+如果 Quick Sort / Quick Select 把 == pivot 的严格划分到左边或者右边,会导致极端情况发生从而时间复杂度很容易退化到 O(n^2),如排序 [1, 1, 1, 1, 1].     
+
 quick sort 里的partition 的写法如下.
 ``` Python 
 def partition(self, nums, k):
