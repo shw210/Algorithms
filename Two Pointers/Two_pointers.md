@@ -547,9 +547,32 @@ class Solution:
         self.sort(colors, color + 1, color_to, left, index_to)
     
 ```
+### Lintcode 539. Move Zeroes
+思路：同向双指针。采取覆盖，而非交换数字的方法，这样可以保证“写”的次数最少
+```Python
+class Solution:
+    """
+    @param nums: an integer array
+    @return: nothing
+    """
+    def moveZeroes(self, nums):
+        # write your code here
+        if len(nums) <= 1: return nums
+        
+        next_position = 0 
+        
+        for i in range(len(nums)):
+            if nums[i] != 0: 
+                if i != next_position:
+                    nums[next_position] = nums[i]  ## 注意，是覆盖，而不是交换
+                next_position += 1 
+            
+        if next_position < len(nums):
+            nums[next_position:] = [ 0 for _ in range(len(nums) - next_position)] 
 
+```
 
-
+如果不需要维持原来数组中元素的相对顺序,最优算法就是采用相向双指针，该问题也就变成了partition array的问题
 
 
 
