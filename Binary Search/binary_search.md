@@ -144,3 +144,37 @@ def mountainSequence(self, nums):
         
         return max(nums[start], nums[end])
 ```
+### LintCode 447. Search in a Sorted Array of Unknown Size
+二分查找第一个不小于target的元素很简单. 但是需要确定二分区间的范围. 此时还是需要倍增地找到右边界.		
+
+初始右边界为1, 如果右边界的数小于 target, 就将其倍增, 直到右边界不小于target.		
+
+这时就可以二分查找了.		
+
+注意: 越界访问是没有关系的, 因为这个ArrayReader在越界访问时, 返回 INT_MAX, 一定不小于 target. 而即使是返回 -1 之类的数值, 我们也可以加一个判断搞定.	
+
+```Python
+def searchBigSortedArray(self, reader, target):
+        # write your code here
+        start, end = 0, 1 
+	
+	# 怎么处理target在最后一个区间里呢？即出界前没找到 比target大的数字。
+        # 答：没有关系，我最后一个end也算是找到了一个边界，(0 + end) //2 也一定在边界以内
+        while reader.get(end) < target:
+            end = end * 2 
+            
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if reader.get(mid) == target:
+                end = mid
+            elif reader.get(mid) > target:
+                end = mid
+            else:
+                start = mid
+                
+        if reader.get(start) == target: return start
+        if reader.get(end) == target: return end
+        
+        return -1
+```
