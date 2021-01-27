@@ -224,5 +224,27 @@ class Solution(object):
         
 ```
 ### 153. Find Minimum in Rotated Sorted Array
-注意：采用将数字图像化的方法找规律
+思路：右半部分的条件就是小于等于最后一个数。
+注意：采用将数字图像化的方法找规律	
 
+```Python
+def findMin(self, nums):
+        # write your code here
+        return self.first_smaller_than_target(nums, nums[-1])
+        
+    
+    # find first element smaller than target
+    def first_smaller_than_target(self, nums, target):
+        start, end = 0, len(nums) - 1 
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if nums[mid] > target:
+                start = mid
+            else: 
+                end = mid 
+                
+        return min(nums[end], nums[start])
+
+```
