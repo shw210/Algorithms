@@ -178,3 +178,49 @@ def searchBigSortedArray(self, reader, target):
         
         return -1
 ```
+
+### 658. Find K Closest Elements
+采用的是二分法 + 双指针 二分法确定一个位置，左侧是 < target，右侧是 >= target 然后用两根指针从中间向两边走，依次找到最接近的 k 个数. 注意：写了一个 leftIsCloser 的函数，将复杂的判断条件外包了出去，这样更不容易出错也更清晰。
+```Python
+class Solution(object):
+    def findClosestElements(self, arr, k, x):
+        right = self.findFirstIndex(arr, x)
+        left = right - 1 
+        
+        for _ in range(k):
+            if self.leftIsCloser(arr, left, right, x):
+                left -= 1 
+            else:
+                right += 1 
+            
+        return arr[left+1:right]
+        
+        
+    def leftIsCloser(self, arr, left, right, target):
+        if left < 0:
+            return False
+        if right >= len(arr):
+            return True
+        return target - arr[left] <= arr[right] - target
+    
+    
+    
+    def findFirstIndex(self, arr, x):    
+        # binary search
+        start, end = 0, len(arr) - 1 
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if arr[mid] >= x:
+                end = mid
+            elif arr[mid] < x:
+                start = mid 
+        
+        if arr[start] >= x: return start
+        if arr[end] >= x: return end
+        
+        return len(arr)
+        
+```
+
