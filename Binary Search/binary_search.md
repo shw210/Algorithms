@@ -1,4 +1,5 @@
 # 介绍
+二分就是解决looking for some target that satisfied some conditions的问题，将list分成左右两部分。
 ## 方法一 Implementation
 ```Python
 L = 0, R = N - 1
