@@ -1,5 +1,5 @@
 # 介绍
-二分就是解决looking for some target that satisfied some conditions的问题，将list分成左右两部分。
+二分就是解决looking for some target that satisfied some conditions的问题，将list分成 oooooxxxxxx, 要么找最后一个o，要么找第一个x。
 ## 方法一 Implementation
 ```Python
 L = 0, R = N - 1
@@ -249,6 +249,18 @@ def findMin(self, nums):
         return min(nums[end], nums[start])
 
 ```
+## 二分法 第三境界： 在未排序的数据集上进行二分
+
+并无法找到一个条件,形成 XXOO 的模型。但可以根据判断,保留下有解的那一半或者去掉无解的一半
+
 ### Lintcode 75. Find Peak Element
-思路：暴力算法（枚举）为 O(N), 比暴力更好只能是 O(logN), 考虑二分法。先升后降必有峰		
+思路：暴力算法（枚举）为 O(N), 比暴力更好只能是 O(logN), 考虑二分法。先升后降必有峰，以此为依据判断移动的方向： mid 处于升，则右边必有峰；mid 处于降，则左边必有峰；mid 比左右两边都大，则mid 自己是峰。
+#### 由此可见，二分法的核心就是判断向左还是向右的条件。
 note: 如果要找出所有peak, 则最小时间复杂度为 O(N) ， 因为可以是 [1,2,1,2,1,2,1], 这样可以有 n/2 个解，所以时间复杂度最后为 O(N).
+
+
+## 二分法 第四境界： 在答案集上进行二分
+第一步:确定答案范围		
+第二步:验证答案大小
+### 183. Wood Cut
+也是求 the last position of something, 在这里就是 最后一个（即最大）满足条件的 L.
