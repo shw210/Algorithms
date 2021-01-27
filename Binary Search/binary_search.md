@@ -1,32 +1,8 @@
 # 介绍
 二分就是解决looking for some target that satisfied some conditions的问题，将list分成 oooooxxxxxx, 要么找最后一个o，要么找第一个x。
-## 方法一 Implementation
-```Python
-L = 0, R = N - 1
-
-ans = -1
-
-while L <= R:
-	mid = L + (R - L) // 2
-	if a[mid] >= target:
-		ans = mid
-		R = mid - 1
-	else:
-		L = mid + 1
-		
-return ans
-```
 
 
-problems suited for binary search: sorted array, looking for some target that satisfied some conditions
-
-General idea: 
-0. initialize the answer 
-1. go to middle point, if middle point satisfies that condition, record that answer
-2. decide which side to go next to find a better answer, if find a better one update the answer
-3. loop until go through all the needed scan, ie. L > R
-
-## 方法二implementation
+## 模版
 ```Python
 class Solution:
     # @param nums: The integer array
@@ -71,6 +47,9 @@ class Solution:
 而普通的start < end 或者 start <= end 在寻找目标最后一次出现的位置的时候，可能出现死循环。
 
 # 题目
+
+## 二分法 第一境界： 写出不会死循环的二分法
+
 ### leetcode 34. Find First and Last Position of Element in Sorted Array
 我们只介绍怎么 find last position of element in sorted array, first position 同理		
 
@@ -179,6 +158,8 @@ def searchBigSortedArray(self, reader, target):
         
         return -1
 ```
+## 二分法 第二境界 OOXX： 在排序的数据集上进行二分
+一般会给你一个数组，让你找数组中第一个/最后一个满足某个条件的位置： OOOOOXXXXXXX
 
 ### 658. Find K Closest Elements
 采用的是二分法 + 双指针 二分法确定一个位置，左侧是 < target，右侧是 >= target 然后用两根指针从中间向两边走，依次找到最接近的 k 个数. 注意：写了一个 leftIsCloser 的函数，将复杂的判断条件外包了出去，这样更不容易出错也更清晰。
