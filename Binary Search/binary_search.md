@@ -223,4 +223,6 @@ class Solution(object):
         return len(arr)
         
 ```
+### 153. Find Minimum in Rotated Sorted Array
+注意：采用将数字图像化的方法找规律
 
