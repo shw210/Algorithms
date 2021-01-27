@@ -249,3 +249,6 @@ def findMin(self, nums):
         return min(nums[end], nums[start])
 
 ```
+### Lintcode 75. Find Peak Element
+思路：暴力算法（枚举）为 O(N), 比暴力更好只能是 O(logN), 考虑二分法。先升后降必有峰		
+note: 如果要找出所有peak, 则最小时间复杂度为 O(N) ， 因为可以是 [1,2,1,2,1,2,1], 这样可以有 n/2 个解，所以时间复杂度最后为 O(N).
