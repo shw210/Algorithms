@@ -68,3 +68,24 @@ def findSubtree(self, root):
         return root_sum, root, root_sum
 
 ```
+### LintCode 
+使用 HashSet 记录从 A 到根的所有点. 访问从 B 到根的所有点,第一个出现在 HashSet 中的就是
+```Python
+def lowestCommonAncestorII(self, root, A, B):
+        # write your code here
+
+        A_parent = set()
+    
+        curr = A 
+        while curr:
+            A_parent.add(curr)
+            curr = curr.parent 
+        
+        curr = B 
+        while curr:
+            if curr in A_parent:
+                return curr
+            curr = curr.parent
+            
+        return None
+```
