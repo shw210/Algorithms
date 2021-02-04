@@ -111,3 +111,40 @@ class Solution(object):
         if left: return left # 都在左边，left就是碰见的第一个值，即root
         if right: return right
 ```
+### 1644. Lowest Common Ancestor of a Binary Tree II 
+两个node不一定在tree里，所以需要添加两个output，记录node是否在tree里。         
+这道题和236， 都是要尽可能在中间过程多记录信息，方便最后输入output
+```Python
+def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        p_exist, q_exist, ans = self.helper(root, p, q)
+        
+        if p_exist and q_exist: return ans
+        
+        return None
+        
+    def helper(self, root, p, q):
+        
+        if not root: 
+            return False, False, None
+        
+        left_p_exist, left_q_exist, left_ans = self.helper(root.left, p, q)
+        right_p_exist, right_q_exist, right_ans = self.helper(root.right, p, q) 
+        
+        p_exist = left_p_exist or right_p_exist or root == p
+        q_exist = left_q_exist or right_q_exist or root == q
+        
+        if root == p or root == q:
+            return p_exist, q_exist, root
+        
+        if left_ans and right_ans: return p_exist, q_exist, root
+        if left_ans: return p_exist, q_exist, left_ans
+        if right_ans: return p_exist, q_exist, right_ans
+        
+        return p_exist, q_exist, None  ### 记得写这行
+```
