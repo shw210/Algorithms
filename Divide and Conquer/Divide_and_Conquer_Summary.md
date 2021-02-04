@@ -68,7 +68,7 @@ def findSubtree(self, root):
         return root_sum, root, root_sum
 
 ```
-### LintCode 
+### LintCode 474. Lowest Common Ancestor II (有父指针）
 使用 HashSet 记录从 A 到根的所有点. 访问从 B 到根的所有点,第一个出现在 HashSet 中的就是
 ```Python
 def lowestCommonAncestorII(self, root, A, B):
@@ -88,4 +88,26 @@ def lowestCommonAncestorII(self, root, A, B):
             curr = curr.parent
             
         return None
+```
+### 236. Lowest Common Ancestor of a Binary Tree
+有什么就return什么
+```Python
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        #Edge/Condition
+        if not root: return None
+        if root == p or root == q: return root #遇到第一个值就会返回
+        
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        
+        if left and right: return root #左右都有值，返回root
+        if left: return left # 都在左边，left就是碰见的第一个值，即root
+        if right: return right
 ```
