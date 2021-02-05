@@ -148,3 +148,35 @@ def lowestCommonAncestor(self, root, p, q):
         
         return p_exist, q_exist, None  ### 记得写这行
 ```
+### 114. Flatten Binary Tree to Linked List
+helper function return the last node and modify
+```Python
+def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: None Do not return anything, modify root in-place instead.
+        """
+        self.helper(root)
+        
+    def helper(self, root):
+        """
+        return last node and modify
+        """ 
+        if not root: return None 
+        
+        # root is last node 
+        if not root.left and not root.right:
+            return root 
+        
+        last_left = self.helper(root.left)
+        last_right = self.helper(root.right)
+        
+        # connect
+        if root.left:
+            last_left.right = root.right
+            root.right = root.left
+            root.left = None
+        
+        return last_right or last_left #注意这种写法
+        
+```
