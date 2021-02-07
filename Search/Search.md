@@ -1,3 +1,57 @@
+# DFS
+
+### Lintcode 17. Subsets 
+方法一：[1,2,3] 的树长下面这样 (这不是二叉树）。dfs 会先一路走到底，然后再回溯
+```html 
+                  [ ]               # result.append() 那行会把每个 node（即当先subset）先加到结果里，然后再 for loop里继续添加数字
+        [1]       [2]       [3]     # for loop 会挨个处理后面可选的数字，但会先在[1]的subtree上一路走到底
+    [1,2] [1,3] [2,3]
+[1,2,3] 
+```
+需要注意的是 result.append(list(current_set)) 的写法，where 我们深度复制了 current set 并添加到最终结果中。如果写成 result.append(current_set)，我们添加的只是一个reference, 当 current_set 改变时，result也会随着改变。
+```Python
+def subsets(self, nums):
+        # write your code here
+        result = []
+        self.dfs(sorted(nums), 0, [], result)
+        return result
+        
+        
+    def dfs(self, nums, startIndex, current_set, result):
+        result.append(list(current_set))
+        
+        for i in range(startIndex, len(nums)):    # startIndex保证了我只会从后面的数字里选数，不会出现选了 [1,2] 然后又选了 [2,1]
+            current_set.append(nums[i]) # [1] -> [1,2]
+            self.dfs(nums, i + 1, current_set, result) # 寻找以 [1,2] 开头的所有子集
+            current_set.pop()  #回溯 [1,2] -> [1]
+    
+```
+
+
+方法二：在树的每一层上考虑加 nums[i] 还是不加, subset 只在最下面一层的叶子节点上。我们采用dfs，会先一路走到底      
+```Python
+def subsets(self, nums):
+        result = []
+        current_set = []
+        index = 0
+        
+        self.dfs(sorted(nums), index, current_set, result)
+        
+        return result
+        
+    def dfs(self, nums, index, current_set, result):
+        
+        if index == len(nums):
+            result.append(list(current_set))
+            return
+            
+        current_set.append(nums[index]) # 加这个index上的number的情况
+        self.dfs(nums, index + 1, current_set, result)
+        current_set.pop() # 不加这个index的number 的情况
+        self.dfs(nums, index + 1, current_set, result)
+        
+```
+
 ## BackTracking
 
 
@@ -182,43 +236,6 @@ class Solution(object):
         return answer
 ```
 
-## 78. Subsets
-
-找出所有子集
-```html
-Input: nums = [1,2,3]
-Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
-```
-注意，如果nums = [1, 2, 3], 那么nums[3:] 为 [], 不会报错    
-
-Solution:
-```Python
-class Solution(object):
-    def subsets(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        # assume nums only contain distinct numbers
-        prefix = []
-        answer = []
-        
-        def helper(prefix, sufix, k):
-            if k == 0:
-                answer.append(prefix)
-                return
-            
-            if len(sufix) == 0: return
-            
-            for i in range(len(sufix)):
-                helper(prefix + [sufix[i]], sufix[i + 1:], k - 1) #注意，可以写sufix[i + 1:]，不会报错
-            
-        for i in range(len(nums) + 1):
-            helper(prefix, nums, i)
-            
-            
-        return answer
-```
 ## 90. Subsets II
 
 与78类似，只不过有duplicate numbers in the sets, 记得要先sort
