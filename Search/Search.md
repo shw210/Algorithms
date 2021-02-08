@@ -87,14 +87,38 @@ class Solution(object):
         
         return results
 ```
+## 排列类问题
 
 ### 46. Permutations
 ```html
 [1,1,2] have the following unique permutations:
 [[1,1,2], [1,2,1], [2,1,1]]
 ```
+写法一：就是一个从number里挑数字放到pre_set，当pre_set长度到达后就将其放到result里的过程。跟组合类问题的写法一很像，只不过再放一个数字时要check该数字是不是已经再pre_set里了（通过visited实现），防止同一个数字再排列里出现两次的情况
+```Python
+def permute(self, nums):
+        # write your code here
+        if not nums: return [[]]
+        
+        result = []
+        self.dfs(nums, [], result)
+        return result
+    
+    def dfs(self, nums, pre_set, result):
+        if len(pre_set) == len(nums):
+            result.append(list(pre_set))
+            return
+        
+        for i in range(len(nums)):
+            if nums[i] in set(pre_set):
+                continue
+            
+            pre_set.append(nums[i])
+            self.dfs(nums, pre_set, result)
+            pre_set.pop()
+```
 
-思路：     
+写法二：     
 recursive function: loop through the nums, 轮流将i位的数字挑出来放到prefix里，剩下的字段属于备选. 将这个过程一直进行到剩下的字段为零为止，将prefix贴到answer里. 
 
 ```Python
