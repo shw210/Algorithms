@@ -163,6 +163,36 @@ class Solution(object):
         
         return answer
 ```
+### LintCode 10. String Permutation II
+```Python
+def stringPermutation2(self, str):
+        # write your code here
+        visited = [False] * len(str)
+        result = []
+        self.dfs(sorted(list(str)), visited, [], result)
+        return result
+        
+    
+    def dfs(self, str, visited, permutation, permutations):
+        
+        if len(str) == len(permutation):
+            permutations.append(''.join(permutation))
+            
+        for i in range(len(str)):
+            if visited[i]:
+                continue
+            
+            if i > 0 and str[i - 1] == str[i] and not visited[i - 1]:
+                continue
+            
+            permutation.append(str[i])
+            visited[i] = True 
+            self.dfs(str, visited, permutation, permutations)
+            visited[i] = False
+            permutation.pop()
+```
+
+
 ## 47. Permutations II      
 
 思路：与46题相似，只不过有duplicates，所以当余下数字为【1，1，2】时，我真实的可选数字只有两个【1，2】。详情见leetcode上的答案
