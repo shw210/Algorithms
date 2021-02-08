@@ -51,8 +51,28 @@ def subsets(self, nums):
         self.dfs(nums, index + 1, current_set, result)
         
 ```
-
-## BackTracking
+### Lintcode 18. Subsets II
+集合里有重复的元素
+```Python
+def subsetsWithDup(self, nums):
+        # write your code here
+        result = []
+        
+        self.dfs(sorted(nums), 0, [], result)
+        return result
+    
+    def dfs(self, nums, startIndex, subset, subsets):
+        subsets.append(list(subset))
+        
+        for i in range(startIndex, len(nums)):
+            if i > startIndex and nums[i] == nums[i - 1]:   # 剪枝，避免相等数字在搜索树的同一层上重复进入subset
+                continue
+                
+            subset.append(nums[i])
+            self.dfs(nums, i + 1, subset, subsets)
+            subset.pop()
+            
+```
 
 
 ### 257\. Binary Tree Paths (Easy)
@@ -260,47 +280,7 @@ class Solution(object):
         return answer
 ```
 
-## 90. Subsets II
 
-与78类似，只不过有duplicate numbers in the sets, 记得要先sort
-
-``` Python
-class Solution(object):
-    def subsetsWithDup(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        answer = []
-        prefix = []
-        
-        def helper(prefix, sufix, k):
-            if k == 0:
-                answer.append(prefix)
-                return
-            
-            #方法一：
-            #for num in set(sufix):
-            #    i = sufix.index(num)
-            #    helper(prefix + [sufix[i]], sufix[i + 1:], k - 1) 
-            
-            #方法二：
-            visited = set()
-            
-            for i in range(len(sufix)):
-                if sufix[i] not in visited:
-                    helper(prefix + [sufix[i]], sufix[i + 1:], k - 1)
-                    visited.add(sufix[i])
-        
-        for k in range(len(nums) + 1):
-            helper(prefix, nums.sort(), k)
-            
-            
-        return answer
-
-
-
-```
 ## 131. Palindrome Partitioning
 注意：如何判断 s 是不是 palindrome， 可直接用 s == s[::-1] 的写法
 ```Python
