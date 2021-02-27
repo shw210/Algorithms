@@ -311,7 +311,7 @@ class Solution(object):
 ```
 
 
-## 131. Palindrome Partitioning
+### 131. Palindrome Partitioning
 注意：如何判断 s 是不是 palindrome， 可直接用 s == s[::-1] 的写法
 ```Python
 class Solution(object):
@@ -337,7 +337,8 @@ class Solution(object):
         
         return answer
 ```
-## 37. Sudoku Solver 数独
+## 矩阵上的DFS
+### 37. Sudoku Solver 数独
 思路：1. 先遍历一遍棋盘，记录下每行每列每个box已经有的数字        
      2. 然后开始采用dfs的方法往空格里填数字i。如果失败要记得将上一个填的数字i复原为空，然后继续循环尝试填入数字 i + 1
 ```Python
@@ -387,4 +388,55 @@ class Solution(object):
             
     
         helper(0, 0)
+```
+### 51. N-Queens
+DFS經典題
+程序結構包括：入口函數、搜索函數、打印函數、判斷函數
+時間複雜度：O(方案總數 * 構造每個方案的時間) = O(S * N^2)
+S 為N 皇后的方案數, N^2 是畫棋盤的時間    
+因为这道题的特点，我们在记录当前方案的时候只用一个list就可以了，例如[1,3,6] 表示在第一行 1 的位置上放，在第二行 3 的位置上放，在第三行 6 的位置上放
+
+``` Python
+class Solution:
+    """
+    @param: n: The number of queens
+    @return: All distinct solutions
+    """
+    def solveNQueens(self, n):
+        #result用于存储答案
+        results = []
+        self.search(n, [], results)
+        return results
+    #search函数为搜索函数，n表示已经放置了n个皇后，col表示每个皇后所在的列
+    def search(self, n, col, results):
+        row = len(col)
+        #若已经放置了n个皇后表示出现了一种解法，绘制后加入答案result
+        if row == n:
+            results.append(self.Draw(col))
+            return
+        #枚举当前皇后放置的列，若不合法则跳过
+        for now_col in range(n):
+            if not self.isValid(col, row, now_col):
+                continue
+            #若合法则递归枚举下一行的皇后
+            col.append(now_col)
+            self.search(n, col, results)
+            col.pop()
+    #isValid函数为合法性判断函数
+    def isValid(self, cols, row, now_col):
+        for r, c in enumerate(cols):
+            #若有其他皇后在同一列或同一斜线上则不合法
+            if c == now_col:
+                return False
+            if abs( r - row ) == abs( c - now_col ):
+                return False
+        return True
+    #Draw函数为将col数组转换为答案的绘制函数
+    def Draw(self, cols):
+        n = len(cols)
+        board = []
+        for i in range(n):
+            row = ['Q' if j == cols[i] else '.' for j in range(n)]
+            board.append(''.join(row))
+        return board
 ```
