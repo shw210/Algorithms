@@ -390,7 +390,8 @@ class Solution(object):
         helper(0, 0)
 ```
 ### 51. N-Queens
-DFS經典題
+DFS經典題. 详细答案请看 https://www.jiuzhang.com/solutions/n-queens/     
+
 程序結構包括：入口函數、搜索函數、打印函數、判斷函數
 時間複雜度：O(方案總數 * 構造每個方案的時間) = O(S * N^2)
 S 為N 皇后的方案數, N^2 是畫棋盤的時間    
@@ -439,4 +440,60 @@ class Solution:
             row = ['Q' if j == cols[i] else '.' for j in range(n)]
             board.append(''.join(row))
         return board
+```
+方法二：使用visited 优化 isValid的过程
+```Python
+class Solution:
+    """
+    @param: n: The number of queens
+    @return: All distinct solutions
+    """
+    def solveNQueens(self, n):
+        boards = []
+        visited = {
+            'col': set(),
+            'sum': set(),
+            'diff': set(),
+        }
+        self.dfs(n, [], visited, boards)
+        return boards
+        
+    def dfs(self, n, permutation, visited, boards):
+        if n == len(permutation):
+            boards.append(self.draw(permutation))
+            return
+        
+        row = len(permutation)
+        for col in range(n):
+            if not self.is_valid(permutation, visited, col):
+                continue
+            permutation.append(col)
+            visited['col'].add(col)
+            visited['sum'].add(row + col)
+            visited['diff'].add(row - col)
+            self.dfs(n, permutation, visited, boards)
+            visited['col'].remove(col)
+            visited['sum'].remove(row + col)
+            visited['diff'].remove(row - col)
+            permutation.pop()
+
+    # O(1)
+    def is_valid(self, permutation, visited, col):
+        row = len(permutation)
+        if col in visited['col']:
+            return False
+        if row + col in visited['sum']:
+            return False
+        if row - col in visited['diff']:
+            return False
+        return True
+        
+    def draw(self, permutation):
+        board = []
+        n = len(permutation)
+        for col in permutation:
+            row_string = ''.join(['Q' if c == col else '.' for c in range(n)])
+            board.append(row_string)
+        return board
+
 ```
