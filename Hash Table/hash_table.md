@@ -1,3 +1,102 @@
+### 146. LRU Cache
+思路：采用linked list储存数据，dictionary 储存 previous node 方便查找 linked node       
+get() 要发生的事：1. return the value of the key  2. 将 get 的 key 移到Linked list 最后面        
+set() 要发生的事：1. update if value of the key if key exisits 2. if not exists, add new pair. At the same time, remove LRU if lengh exceeds capacity     
+需要的function：        
+1. push_back()： 在最尾端加入新值，this is for set() function     
+2. pop_front()： pop LRU， this is for set() function         
+3. kick()： 将node移到Linked list最后， this is for get() function
+```Python
+class LinkedNode:
+    def __init__(self, key = None, value = None, next = None):
+        self.value = value
+        self.key = key
+        self.next = next
+
+class LRUCache(object):
+
+    def __init__(self, capacity):
+        # do intialization if necessary
+        self.capacity = capacity
+        self.key_to_prev = {}
+        self.dummy = LinkedNode()
+        self.tail = self.dummy
+        
+
+    def get(self, key):
+        # write your code here
+       
+        if key not in self.key_to_prev:
+            return -1 
+
+        prev = self.key_to_prev[key]
+        value = prev.next.value 
+        self.kick(prev)
+
+        return value
+        
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        if key in self.key_to_prev:
+            prev = self.key_to_prev[key]
+            prev.next.value = value 
+            self.kick(prev)
+            return 
+        
+        self.push_back(LinkedNode(key, value))
+
+        if len(self.key_to_prev) > self.capacity:
+            self.pop_front()
+
+    # change prev -> node -> next -> .. -> tail 
+    # to prev -> next -> ... -> tail -> node
+    def kick(self, prev):
+       
+        node = prev.next 
+
+        if node == self.tail:
+            return
+
+        prev.next = node.next
+        self.key_to_prev[node.next.key] = prev
+    
+        node.next = None
+        self.push_back(node)
+       
+        
+
+    def push_back(self, node):
+        # change last -> tail to last -> tail -> node
+        
+        # update dictionary
+        self.key_to_prev[node.key] = self.tail
+       
+        # update linked list
+        self.tail.next = node 
+        self.tail = node 
+
+    def pop_front(self):
+        # change dummy -> first -> next -> ...-> tail 
+        # to dummy -> next -> ... -> tail
+
+        # update linked list 
+        first = self.dummy.next 
+        next = first.next 
+        self.dummy.next = next 
+        first.next = None
+
+        # update dictionary
+        self.key_to_prev[next.key] = self.dummy
+        del self.key_to_prev[first.key]   
+
+```
+
+
 ### 217. Contains Duplicate
 
 ```Python
