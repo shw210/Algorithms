@@ -243,5 +243,35 @@ note: 如果要找出所有peak, 则最小时间复杂度为 O(N) ， 因为可�
 ## 二分法 第四境界： 在答案集上进行二分
 第一步:确定答案范围		
 第二步:验证答案大小
-### 183. Wood Cut
-也是求 the last position of something, 在这里就是 最后一个（即最大）满足条件的 L.
+### Lintcode 183. Wood Cut
+也是求 the last position of something, 在这里就是 最后一个（即最大）满足条件的 L. 使用基于答案值域的二分法。 木头长度的范围在 1 到 max(L)，在这个范围内二分出一个长度 length，然后看看以这个 wood length 为前提的基础上，能切割出多少木头，如果少于 k 根，说明要短一些才行，如果多余 k，说明可以继续边长一些。
+```Python
+def woodCut(self, L, k):
+        # write your code here
+        if not L:
+            return 0
+
+        start, end = 1, max(L)
+       
+        while start + 1 < end:
+            mid = (start + end) // 2 
+
+            if self.get_pieces(L, mid) >= k:
+                start = mid
+            else:
+                end = mid 
+
+        if self.get_pieces(L, end) >= k:
+            return end 
+        if self.get_pieces(L, start) >= k:
+            return start 
+        
+        return 0
+
+    def get_pieces(self, L, length):
+        pieces = 0
+        for l in L:
+            pieces += l // length 
+
+        return pieces
+```
