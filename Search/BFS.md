@@ -62,7 +62,8 @@ def cloneGraph(self, node):
             
 ```
 ### Lintcode 122. Word Ladder
-主方程就是 BFS 的模板。注意 get_neibor_words 的时间复杂度为 O(52 * L^2) = O（L * 26 * 2L)
+主方程就是 BFS 的模板。注意 get_neibor_words 的时间复杂度为 O(52 * L^2) = O（L * 26 * 2L)                  
+Python 队列建议使用用 deque. Deques support thread-safe, memory efficient appends and pops from either side of the deque with approximately the same O(1) performance in either direction.
 ```Python
 class Solution:
     """
