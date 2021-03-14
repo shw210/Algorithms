@@ -61,3 +61,45 @@ def cloneGraph(self, node):
                 new_node.neighbors.append(new_neighbor)
             
 ```
+### Lintcode 122. Word Ladder
+主方程就是 BFS 的模板。注意 get_neibor_words 的时间复杂度为 O(52 * L^2) = O（L * 26 * 2L)
+```Python
+class Solution:
+    """
+    @param: start: a string
+    @param: end: a string
+    @param: dict: a set of string
+    @return: An integer
+    """
+    def ladderLength(self, start, end, dict):
+        # write your code here
+        dict.add(end)
+        queue = collections.deque([start])
+        distance = {start: 1}
+
+        while queue:
+            word = queue.popleft() 
+            for next_word in self.get_neibor_words(word, dict):
+                if next_word in distance:
+                    continue 
+                if next_word == end:
+                    return distance[word] + 1 
+                distance[next_word] = distance[word] + 1 
+                queue.append(next_word)
+
+        return 0 
+
+    def get_neibor_words(self, word, dict):
+        neibor_words = []
+
+        for i in range(len(word)): # 循环 L 次
+            left, right = word[:i], word[i+1:] # 此处创建了新的字符串，时间复杂度为 O(L)，跟下面的 O(52L)相比比较小，可以忽略不计
+            for character in "abcdefghijklmnopqrstuvwxyz": # 时间复杂度为 O（26）
+                if word[i] == character:
+                    continue
+                neibor_word = left + character + right # 创建了新的字符串，时间复杂度为 O(L)
+                if neibor_word in dict: # dictionary查找，时间复杂度为 O（L）
+                    neibor_words.append(neibor_word)
+        
+        return neibor_words
+```
