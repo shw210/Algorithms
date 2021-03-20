@@ -167,7 +167,7 @@ class Solution:
                         queue.append(neighbor)
 ```
 
-题解：
+题解，使用哈希表记录距离：
 ```Python
 DIRECTIONS = [
     (-2, -1), (-2, 1), (-1, 2), (1, 2),
