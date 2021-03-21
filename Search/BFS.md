@@ -239,7 +239,7 @@ class Solution:
             order.append(node) # 并将入度为零的点放入最终的答案order中
             for neighbor in node.neighbors: # 将 这个入度为零的点的所有neighbor的入度减一
                 indegree_dict[neighbor] -= 1
-                if indegree_dict[neighbor] == 0:
+                if indegree_dict[neighbor] == 0: # 如果减一以后neighbor的入度变为零，则将其放入order中
                     queue.append(neighbor) 
         
         return order
