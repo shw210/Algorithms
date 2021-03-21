@@ -10,7 +10,7 @@
                 distance[neighbor] = distance[node] + 1
                 queue.append(neighbor)
 ```
-
+## 连通块问题 
 ### 133. Clone Graph
 思想：劝分不劝合。 把方程分开写成小方程，更不容易出错，也更容易debug  
 steps: 1. 通过BFS从原图给定的点找到所有点 2. 复制所有的点 3.复制所有的边
@@ -61,49 +61,6 @@ def cloneGraph(self, node):
                 new_node.neighbors.append(new_neighbor)
             
 ```
-### Lintcode 122. Word Ladder
-主方程就是 BFS 的模板。注意 get_neibor_words 的时间复杂度为 O(52 * L^2) = O（L * 26 * 2L)                  
-Python 队列建议使用用 deque. Deques support thread-safe, memory efficient appends and pops from either side of the deque with approximately the same O(1) performance in either direction.
-```Python
-class Solution:
-    """
-    @param: start: a string
-    @param: end: a string
-    @param: dict: a set of string
-    @return: An integer
-    """
-    def ladderLength(self, start, end, dict):
-        # write your code here
-        dict.add(end)
-        queue = collections.deque([start])
-        distance = {start: 1}
-
-        while queue:
-            word = queue.popleft() 
-            for next_word in self.get_neibor_words(word, dict):
-                if next_word in distance:
-                    continue 
-                if next_word == end:
-                    return distance[word] + 1 
-                distance[next_word] = distance[word] + 1 
-                queue.append(next_word)
-
-        return 0 
-
-    def get_neibor_words(self, word, dict):
-        neibor_words = []
-
-        for i in range(len(word)): # 循环 L 次
-            left, right = word[:i], word[i+1:] # 此处创建了新的字符串，时间复杂度为 O(L)，跟下面的 O(52L)相比比较小，可以忽略不计
-            for character in "abcdefghijklmnopqrstuvwxyz": # 时间复杂度为 O（26）
-                if word[i] == character:
-                    continue
-                neibor_word = left + character + right # 创建了新的字符串，时间复杂度为 O(L)
-                if neibor_word in dict: # dictionary查找，时间复杂度为 O（L）
-                    neibor_words.append(neibor_word)
-        
-        return neibor_words
-```
 ### Lintcode 433. Number of Islands
 采用BFS寻找所有与 ‘1’ 相连的格子，这样算一个island。这道题如果采用 DFS 就会有stack overflow的问题
 ```Python
@@ -151,6 +108,52 @@ class Solution:
             return False
         return grid[x][y]
 ```
+
+## 简单图最短路径
+### Lintcode 122. Word Ladder
+主方程就是 BFS 的模板。注意 get_neibor_words 的时间复杂度为 O(52 * L^2) = O（L * 26 * 2L)                  
+Python 队列建议使用用 deque. Deques support thread-safe, memory efficient appends and pops from either side of the deque with approximately the same O(1) performance in either direction.
+```Python
+class Solution:
+    """
+    @param: start: a string
+    @param: end: a string
+    @param: dict: a set of string
+    @return: An integer
+    """
+    def ladderLength(self, start, end, dict):
+        # write your code here
+        dict.add(end)
+        queue = collections.deque([start])
+        distance = {start: 1}
+
+        while queue:
+            word = queue.popleft() 
+            for next_word in self.get_neibor_words(word, dict):
+                if next_word in distance:
+                    continue 
+                if next_word == end:
+                    return distance[word] + 1 
+                distance[next_word] = distance[word] + 1 
+                queue.append(next_word)
+
+        return 0 
+
+    def get_neibor_words(self, word, dict):
+        neibor_words = []
+
+        for i in range(len(word)): # 循环 L 次
+            left, right = word[:i], word[i+1:] # 此处创建了新的字符串，时间复杂度为 O(L)，跟下面的 O(52L)相比比较小，可以忽略不计
+            for character in "abcdefghijklmnopqrstuvwxyz": # 时间复杂度为 O（26）
+                if word[i] == character:
+                    continue
+                neibor_word = left + character + right # 创建了新的字符串，时间复杂度为 O(L)
+                if neibor_word in dict: # dictionary查找，时间复杂度为 O（L）
+                    neibor_words.append(neibor_word)
+        
+        return neibor_words
+```
+
 ### Lintcode 611. Knight shortest path 
 层级遍历问题，可以使用哈希表记录到所有点的距离。                
 也可以多一重循环如下
@@ -208,12 +211,16 @@ class Solution:
             
         return not grid[x][y]
 ```
-### Lintcode 127. Topological Sorting
+
+## 拓扑排序
 算法描述:           
 1. 统计每个点的入度             
 2. 将每个入度为 0 的点放入队列(Queue)中作为起始节点                
 3. 不断从队列中拿出一个点,去掉这个点的所有连边(指向其他点的边),其他点的相应的入度 - 1                
-4. 一旦发现新的入度为 0 的点,丢回队列中         
+4. 一旦发现新的入度为 0 的点,丢回队列中
+
+### Lintcode 127. Topological Sorting
+         
 ```Python
 class Solution:
     """
@@ -222,15 +229,15 @@ class Solution:
     """
     def topSort(self, graph):
         # write your code here
-        indegree_dict = self.graph_to_indegree(graph) 
-        start_nodes = [node for node in indegree_dict if indegree_dict[node] == 0 ]
+        indegree_dict = self.graph_to_indegree(graph) # 统计每个点的入度
+        start_nodes = [node for node in indegree_dict if indegree_dict[node] == 0 ] #找出所有入度为零的点
         order = []
-        queue = collections.deque(start_nodes)
+        queue = collections.deque(start_nodes) # 将入度为零的点放入 queue 中
 
         while queue:
-            node = queue.popleft()
-            order.append(node)
-            for neighbor in node.neighbors:
+            node = queue.popleft() # 去除入度为零的点
+            order.append(node) # 并将入度为零的点放入最终的答案order中
+            for neighbor in node.neighbors: # 将 这个入度为零的点的所有neighbor的入度减一
                 indegree_dict[neighbor] -= 1
                 if indegree_dict[neighbor] == 0:
                     queue.append(neighbor) 
