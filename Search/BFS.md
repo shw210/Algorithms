@@ -208,3 +208,40 @@ class Solution:
             
         return not grid[x][y]
 ```
+### Lintcode 127. Topological Sorting
+算法描述:           
+1. 统计每个点的入度             
+2. 将每个入度为 0 的点放入队列(Queue)中作为起始节点                
+3. 不断从队列中拿出一个点,去掉这个点的所有连边(指向其他点的边),其他点的相应的入度 - 1                
+4. 一旦发现新的入度为 0 的点,丢回队列中         
+```Python
+class Solution:
+    """
+    @param: graph: A list of Directed graph node
+    @return: Any topological order for the given graph.
+    """
+    def topSort(self, graph):
+        # write your code here
+        indegree_dict = self.graph_to_indegree(graph) 
+        start_nodes = [node for node in indegree_dict if indegree_dict[node] == 0 ]
+        order = []
+        queue = collections.deque(start_nodes)
+
+        while queue:
+            node = queue.popleft()
+            order.append(node)
+            for neighbor in node.neighbors:
+                indegree_dict[neighbor] -= 1
+                if indegree_dict[neighbor] == 0:
+                    queue.append(neighbor) 
+        
+        return order
+
+    def graph_to_indegree(self, graph):
+        indegree_dict = {node : 0 for node in graph}
+        for node in graph:
+            for neighbor in node.neighbors:
+                indegree_dict[neighbor] += 1 
+
+        return indegree_dict
+```
