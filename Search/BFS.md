@@ -10,6 +10,35 @@
                 distance[neighbor] = distance[node] + 1
                 queue.append(neighbor)
 ```
+
+### 102. Binary Tree Level Order Traversal
+注意分层遍历的方法
+```Python
+class Solution(object):
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        if not root:
+            return []
+
+        queue = collections.deque([root])
+        result = [] 
+
+        while queue:
+          # 将当前层的所有点的值放到result里
+          result.append([node.val for node in queue])
+          # pop掉当前层，拓展出下一层的点放到queue里
+          for _ in range(len(queue)):
+            node = queue.popleft()
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right) 
+        
+        return result
+```
 ## 连通块问题 
 ### 133. Clone Graph
 思想：劝分不劝合。 把方程分开写成小方程，更不容易出错，也更容易debug  
