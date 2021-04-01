@@ -18,7 +18,47 @@ class Solution(object):
           return 整棵树的结果
      
 ```
+## 遍历法 vs 分治法 257. Binary Tree Paths
+### 遍历法
+通过输入参数 result 到各个点去记录结果。      
+注意：找点不需要手动回溯；求路径时，需要手动回溯。          
+这种回溯的写法 优于 path + str(root.val) + '->' 的写法，因为加号会重新生成一个新的变量，复制一遍path，增加了时间复杂度
+```Python
+class Solution:
+    """
+    @param root: the root of the binary tree
+    @return: all root-to-leaf paths
+    """
+    def binaryTreePaths(self, root):
+        if not root:
+            return []
+        
+        result = []
+        self.dfs(root, [str(root.val)], result)
 
+        return result
+
+    def dfs(self, root, current_path, result):
+        if not root.left and not root.right:
+            result.append('->'.join(current_path))
+            return
+        
+        if root.left:
+            current_path.append(str(root.left.val))
+            self.dfs(root.left, current_path, result)
+            current_path.pop() # 回溯
+        
+        # 也可以写成这样， 但是不推荐，因为当使用加号时，path + str(root.val) + '->' 会重新生成一个新的变量，复制一遍path，增加了时间复杂度
+        #if root.left:
+        #    self.helper(root.left, path + str(root.val) + '->', paths)
+        
+
+
+        if root.right:
+            current_path.append(str(root.right.val))
+            self.dfs(root.right, current_path, result)
+            current_path.pop() # 回溯
+```
 ### 53 Maximum Subarray
 
 思路：divide and conquer
