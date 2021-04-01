@@ -1,3 +1,23 @@
+## 模板
+
+```Python
+class Solution(object):
+     def divideConquer(self, root):
+          if not root:
+               # 处理空树应该返回的结果
+          
+          if not root.left and not root.right:
+          # 处理叶子节点应该返回的结果
+          # 如果叶子的返回结果可以通过两个孔结点的返回结果得到，就可以省略这一段代码
+          
+          
+          左子树返回结果 = divideConquere(root.left)
+          右子树返回结果 = divideConquere(root.right)
+          整棵树的结果 = 按照一定方法合并左右子树的结果
+          
+          return 整棵树的结果
+     
+```
 
 ### 53 Maximum Subarray
 
